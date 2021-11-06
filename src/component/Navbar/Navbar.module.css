@@ -1,7 +1,10 @@
 .nav{
     grid-area: n;
-    background-color: beige;
+    background-color: lightcoral;
 }
-.items{
+.item{
     color:azure;
+}
+.active{
+    color: #d0e408;
 }
