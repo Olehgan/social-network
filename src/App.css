@@ -12,8 +12,8 @@
 }
 
 
-/*!*.app-wrapper-content {*!*/
-/*!*    grid-area: c;*!*/
-/*!*    background-color: cadetblue;*!*/
-/*!*}*!*/
+.app-wrapper-content {
+    grid-area: c;
+    background-color: cadetblue;
+}
 
