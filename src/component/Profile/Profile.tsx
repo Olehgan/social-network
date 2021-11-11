@@ -7,7 +7,7 @@ export const Profile = () => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts />
         </div>
 
 
