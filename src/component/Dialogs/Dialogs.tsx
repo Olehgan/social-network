@@ -24,19 +24,33 @@ const Messages = (props: MesagesTypeProps) => {
     </div>
 }
 export const Dialogs = () => {
+    let dialogsData =[
+        {id:1, name :'Oleg'},
+        {id:2, name :'Dimas'},
+        {id:3, name :'Any'},
+        {id:4, name :'Ilia'},
+    ]
+
+    let messagesData =[
+        {id:1, message:'How are you'},
+        {id:2, message:'How are you'},
+        {id:3, message:'How are you'},
+
+    ]
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
-                <DialogItems name={'Oleg'} id={1}/>
-                <DialogItems name={'Dimas'} id={2}/>
-                <DialogItems name={'Any'} id={3}/>
-                <DialogItems name={'Ilia'} id={4}/>
+                <DialogItems name={dialogsData[0].name} id={dialogsData[0].id}/>
+                <DialogItems name={dialogsData[1].name} id={dialogsData[1].id}/>
+                <DialogItems name={dialogsData[2].name} id={dialogsData[2].id}/>
+                <DialogItems  name={dialogsData[3].name} id={dialogsData[3].id}/>
 
             </div>
             <div className={s.messages}>
-                <Messages message={'How are you'}/>
-                <Messages message={'Hello!!!!\n'}/>
-                <Messages message={'Hi!!'}/>
+                <Messages message={messagesData[0].message}/>
+                <Messages message={messagesData[1].message}/>
+                <Messages message={messagesData[2].message}/>
             </div>
         </div>
     )
