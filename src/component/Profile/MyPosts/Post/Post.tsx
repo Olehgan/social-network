@@ -10,7 +10,7 @@ export const Post = (props: PostPropsType) => {
     return (
 
         <div className={s.item}>
-            <img src={'https://pngimg.com/uploads/mr_bean/mr_bean_PNG16.png'} alt={'photo'}/>
+            <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFb5fMw2UHXHnnNcW6t2Dpa7A_Ubc-9sTvEA&usqp=CAU'} alt={'photo'}/>
             {props.messages}
             <div>
                 <span>like</span> {props.likesCounts}

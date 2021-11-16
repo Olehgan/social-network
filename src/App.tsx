@@ -9,10 +9,13 @@ import {News} from './component/News/News';
 import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
 import {RootState} from "./redux/state";
+import {Users} from "./component/Users/Users";
 
 
 type  AppPropsType = {
-    state:RootState
+    state: RootState
+    addPost: () => void
+    updatePostText: (newText: string) => void
     // dialogs: DialogType[]
     // messages: MessageType[]
     // posts: PostType[]
@@ -25,8 +28,14 @@ const App = (props: AppPropsType) => {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile posts={props.state.profilePage.posts}/>}/>
-                    <Route path={'/dialogs'} element={<Dialogs dialogs={props.state.messagePage.dialogs} messages={props.state.messagePage.messages}/>}/>
+                    <Route path={'/profile'} element={
+                        <Profile
+                            posts={props.state.profilePage.posts} addPost={props.addPost}
+                            newPostText={props.state.profilePage.newPostText} updatePostText={props.updatePostText}
+                        />}/>
+                    <Route path={'/dialogs'} element={<Dialogs dialogs={props.state.messagePage.dialogs}
+                                                               messages={props.state.messagePage.messages}/>}/>
+                    <Route path={'/users/'} element={<Users/>}/>
                     <Route path={'/news/'} element={<News/>}/>
                     <Route path={'/music/'} element={<Music/>}/>
                     <Route path={'/settings/'} element={<Settings/>}/>
