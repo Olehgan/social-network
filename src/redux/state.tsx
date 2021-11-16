@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../render/render";
+let rerenderEntireTree = (state:RootState)=>{
+    console.log("dsdfsfsdf")
+}
 
 export type DialogType = {
     id: number
@@ -37,7 +39,7 @@ export let state: RootState = {
             {id: 1, message: 'Hi my friend', likesCounts: 20},
             {id: 2, message: 'How are you', likesCounts: 15},
         ],
-        newPostText:"it-ti"
+        newPostText:""
     },
     messagePage: {
         dialogs: [
@@ -53,7 +55,7 @@ export let state: RootState = {
         ],
     }
 }
-export  let addPost = ()=>{
+export  const addPost = ()=>{
     let newPost= {
         id:5,
         message : state.profilePage.newPostText,
@@ -63,7 +65,10 @@ export  let addPost = ()=>{
     state.profilePage.newPostText = '';
     rerenderEntireTree(state)
 }
-export  let updatePostText = (newText:string)=>{
+export  const updatePostText = (newText:string)=>{
     state.profilePage.newPostText = newText;
     rerenderEntireTree(state);
+}
+export const subscribe = (observer:any)=>{
+    rerenderEntireTree=observer;
 }
