@@ -8,12 +8,12 @@ import {Dialogs} from "./component/Dialogs/Dialogs";
 import {News} from './component/News/News';
 import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
-import {RootState} from "./redux/state";
 import {Users} from "./component/Users/Users";
+import {StateType} from "./redux/state";
 
 
 type  AppPropsType = {
-    state: RootState
+    state: StateType
     addPost: () => void
     updatePostText: (newText: string) => void
     // dialogs: DialogType[]

@@ -1,7 +1,3 @@
-let rerenderEntireTree = (state:RootState)=>{
-    console.log("dsdfsfsdf")
-}
-
 export type DialogType = {
     id: number
     name: string
@@ -24,51 +20,62 @@ export type DialogsPropsType = {
 
 export type PostTypeProps = {
     posts: PostType[]
-    newPostText:string
+    newPostText: string
 }
 
 
-export type RootState = {
+export type StateType = {
     profilePage: PostTypeProps,
     messagePage: DialogsPropsType
 }
-export let state: RootState = {
+let store  = {
+    _state: {
 
-    profilePage: {
-        posts: [
-            {id: 1, message: 'Hi my friend', likesCounts: 20},
-            {id: 2, message: 'How are you', likesCounts: 15},
-        ],
-        newPostText:""
+        profilePage: {
+            posts: [
+                {id: 1, message: 'Hi my friend', likesCounts: 20},
+                {id: 2, message: 'How are you', likesCounts: 15},
+            ],
+            newPostText: ""
+        },
+        messagePage: {
+            dialogs: [
+                {id: 1, name: 'Oleg'},
+                {id: 2, name: 'Dimas'},
+                {id: 3, name: 'Any'},
+                {id: 4, name: 'Ilia'},
+            ],
+            messages: [
+                {id: 1, message: 'How are you'},
+                {id: 2, message: 'How are you'},
+                {id: 3, message: 'How are you'},
+            ],
+        }
     },
-    messagePage: {
-        dialogs: [
-            {id: 1, name: 'Oleg'},
-            {id: 2, name: 'Dimas'},
-            {id: 3, name: 'Any'},
-            {id: 4, name: 'Ilia'},
-        ],
-        messages: [
-            {id: 1, message: 'How are you'},
-            {id: 2, message: 'How are you'},
-            {id: 3, message: 'How are you'},
-        ],
+    getState() {
+        return this._state
+    },
+    _callSubscriber(state: StateType) {
+        console.log("dsdfsfsdf")
+    },
+    subscribe(observer: any) {
+        this._callSubscriber = observer;
+    },
+    addPost() {
+        let newPost = {
+            id: 5,
+            message: this._state.profilePage.newPostText,
+            likesCounts: 12,
+        }
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber(this._state)
+    },
+    updatePostText(newText: string) {
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber(this._state);
     }
 }
-export  const addPost = ()=>{
-    let newPost= {
-        id:5,
-        message : state.profilePage.newPostText,
-        likesCounts:12,
-    }
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    rerenderEntireTree(state)
-}
-export  const updatePostText = (newText:string)=>{
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
-}
-export const subscribe = (observer:any)=>{
-    rerenderEntireTree=observer;
-}
+export default store;
+
+
