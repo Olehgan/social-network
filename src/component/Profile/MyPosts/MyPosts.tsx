@@ -10,9 +10,8 @@ import {PostType} from "../../../redux/state";
 // }
 type MyPostsTypeProps = {
     posts: PostType[]
-    addPost: () => void
     newPostText: string
-    updatePostText: (newText: string) => void
+    dispatch: (action: any) => void
 }
 export const MyPosts = (props: MyPostsTypeProps) => {
 
@@ -20,20 +19,21 @@ export const MyPosts = (props: MyPostsTypeProps) => {
 
 
     let addPost = () => {
-        props.addPost();
+        // props.addPost();
         // /props.updatePostText("")
+        props.dispatch({type: 'ADD_POST'})
 
     }
-    let onChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
+    let onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // let text = newPostElement.current.value
-        props.updatePostText(e.currentTarget.value)
-
+        // props.updatePostText(e.currentTarget.value)
+        props.dispatch({type: 'UPDATE_NEW_POST_ TEXT', newText: props.newPostText})
     }
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
-                <div><textarea value={props.newPostText} onChange={onChangeHandler} >
+                <div><textarea value={props.newPostText} onChange={onChangeHandler}>
                 </textarea></div>
                 <div>
                     <button onClick={addPost}> Add post</button>

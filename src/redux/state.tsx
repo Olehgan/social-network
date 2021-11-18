@@ -28,7 +28,7 @@ export type StateType = {
     profilePage: PostTypeProps,
     messagePage: DialogsPropsType
 }
-let store  = {
+let store = {
     _state: {
 
         profilePage: {
@@ -52,29 +52,31 @@ let store  = {
             ],
         }
     },
-    getState() {
-        return this._state
-    },
     _callSubscriber(state: StateType) {
         console.log("dsdfsfsdf")
+    },
+    getState() {
+        return this._state
     },
     subscribe(observer: any) {
         this._callSubscriber = observer;
     },
-    addPost() {
-        let newPost = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCounts: 12,
+    dispatch(action: any) {
+        if (action.type === 'ADD_POST') {
+            let newPost = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                likesCounts: 12,
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state)
+        } else if (action.type === 'UPDATE_NEW_POST_ TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+
         }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state)
     },
-    updatePostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
-    }
 }
 export default store;
 
