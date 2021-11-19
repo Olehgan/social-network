@@ -1,3 +1,7 @@
+
+const UPDATE_NEW_POST_TEXT =  'UPDATE_NEW_POST_ TEXT'
+const ADD_POST =  'ADD_POST'
+
 export type DialogType = {
     id: number
     name: string
@@ -62,7 +66,7 @@ let store = {
         this._callSubscriber = observer;
     },
     dispatch(action: any) {
-        if (action.type === 'ADD_POST') {
+        if (action.type === ADD_POST) {
             let newPost = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -71,13 +75,26 @@ let store = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE_NEW_POST_ TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
 
         }
     },
 }
+
+ export const addPostAC = () => {
+    return {
+        type: 'ADD_POST'
+    }
+}
+export const updateNewPostTextAC = (newText:string) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText
+    }
+}
+
 export default store;
 
 
