@@ -9,13 +9,14 @@ import {News} from './component/News/News';
 import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
 import {Users} from "./component/Users/Users";
-import {StateType} from "./redux/state";
+import {RootStoreType, StateType} from "./redux/state";
 
 
 type  AppPropsType = {
-    dispatch:(action:any)=>void
-    state:StateType
-       // dialogs: DialogType[]
+    dispatch: (action: any) => void
+    state: StateType
+    store: RootStoreType
+    // dialogs: DialogType[]
     // messages: MessageType[]
     // posts: PostType[]
 }
@@ -29,11 +30,10 @@ const App = (props: AppPropsType) => {
                 <Routes>
                     <Route path={'/profile'} element={
                         <Profile
-                            posts={props.state.profilePage.posts} dispatch ={props.dispatch}
+                            posts={props.state.profilePage.posts} dispatch={props.dispatch}
                             newPostText={props.state.profilePage.newPostText}
                         />}/>
-                    <Route path={'/dialogs'} element={<Dialogs dialogs={props.state.messagePage.dialogs}
-                                                               messages={props.state.messagePage.messages}/>}/>
+                    <Route path={'/dialogs'} element={<Dialogs store={props.store}/>}/>
                     <Route path={'/users/'} element={<Users/>}/>
                     <Route path={'/news/'} element={<News/>}/>
                     <Route path={'/music/'} element={<Music/>}/>

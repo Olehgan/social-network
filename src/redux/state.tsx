@@ -1,6 +1,8 @@
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_ TEXT'
+const ADD_POST = 'ADD_POST'
+const SEND_MESSAGE = 'SEND_MESSAGE'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
 
-const UPDATE_NEW_POST_TEXT =  'UPDATE_NEW_POST_ TEXT'
-const ADD_POST =  'ADD_POST'
 
 export type DialogType = {
     id: number
@@ -20,6 +22,7 @@ export type PostType = {
 export type DialogsPropsType = {
     dialogs: DialogType[]
     messages: MessageType[]
+    newMessage: string
 }
 
 export type PostTypeProps = {
@@ -30,9 +33,17 @@ export type PostTypeProps = {
 
 export type StateType = {
     profilePage: PostTypeProps,
-    messagePage: DialogsPropsType
+    dialogPage: DialogsPropsType
 }
-let store = {
+export type RootStoreType = {
+    _state: StateType
+    _callSubscriber: (state: StateType) => void
+    getState: () => void
+    subscribe: (observer: any) => void
+    dispatch: (action: any) => void
+}
+
+let store: any = {
     _state: {
 
         profilePage: {
@@ -42,7 +53,7 @@ let store = {
             ],
             newPostText: ""
         },
-        messagePage: {
+        dialogPage: {
             dialogs: [
                 {id: 1, name: 'Oleg'},
                 {id: 2, name: 'Dimas'},
@@ -54,10 +65,12 @@ let store = {
                 {id: 2, message: 'How are you'},
                 {id: 3, message: 'How are you'},
             ],
-        }
+            newMessage: ""
+        },
+
     },
-    _callSubscriber(state: StateType) {
-        console.log("dsdfsfsdf")
+    _callSubscriber(_state: StateType) {
+        console.log("d")
     },
     getState() {
         return this._state
@@ -78,23 +91,43 @@ let store = {
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
-
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.dialogPage.newMessage = action.body
+            this._callSubscriber(this._state);
+        } else if (action.type === SEND_MESSAGE) {
+            let body = this._state.dialogPage.newMessage;
+            this._state.dialogPage.messages.push({id: 4, message: body})
+            this._callSubscriber(this._state)
         }
-    },
-}
-
- export const addPostAC = () => {
-    return {
-        type: 'ADD_POST'
     }
 }
-export const updateNewPostTextAC = (newText:string) => {
+
+// export type AddPostType = ReturnType<typeof addPostAC>
+export const addPostAC = () => {
+    return {
+        type: ADD_POST
+    }
+}
+// export type UpdateNewPostTexType = ReturnType<typeof updateNewPostTextAC>
+export const updateNewPostTextAC = (newText: string) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         newText
     }
 }
-
+// export type SendMessageType = ReturnType<typeof sendMessageAC>
+export const sendMessageAC = () => {
+    return {
+        type: SEND_MESSAGE
+    }
+}
+// export type UpdateNewMessageTexType = ReturnType<typeof updateNewMessageTextAC>
+export const updateNewMessageTextAC = (body: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_TEXT,
+        body
+    }
+}
 export default store;
 
 
