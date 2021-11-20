@@ -9,13 +9,13 @@ import {News} from './component/News/News';
 import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
 import {Users} from "./component/Users/Users";
-import {RootStoreType, StateType} from "./redux/state";
+import {StoreType, RootStateType} from "./redux/state";
 
 
 type  AppPropsType = {
     dispatch: (action: any) => void
-    state: StateType
-    store: RootStoreType
+    state: RootStateType
+    store: StoreType
     // dialogs: DialogType[]
     // messages: MessageType[]
     // posts: PostType[]

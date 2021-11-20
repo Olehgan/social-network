@@ -1,7 +1,11 @@
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_ TEXT'
-const ADD_POST = 'ADD_POST'
-const SEND_MESSAGE = 'SEND_MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialog-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
+//
+// const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_ TEXT'
+// const ADD_POST = 'ADD_POST'
+// const SEND_MESSAGE = 'SEND_MESSAGE'
+// const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
 
 
 export type DialogType = {
@@ -29,23 +33,23 @@ export type PostTypeProps = {
     posts: PostType[]
     newPostText: string
 }
+export type SidebarPropsType = {}
 
-
-export type StateType = {
+export type RootStateType = {
     profilePage: PostTypeProps,
-    dialogPage: DialogsPropsType
+    dialogPage: DialogsPropsType,
+    sidebarPage: SidebarPropsType
 }
-export type RootStoreType = {
-    _state: StateType
-    _callSubscriber: (state: StateType) => void
+export type StoreType = {
+    _state: RootStateType
+    _callSubscriber: () => void
     getState: () => void
-    subscribe: (observer: any) => void
+    subscribe: (callback: () => void) => void
     dispatch: (action: any) => void
 }
 
-let store: any = {
+let store: StoreType = {
     _state: {
-
         profilePage: {
             posts: [
                 {id: 1, message: 'Hi my friend', likesCounts: 20},
@@ -67,67 +71,74 @@ let store: any = {
             ],
             newMessage: ""
         },
+        sidebarPage: {}
 
     },
-    _callSubscriber(_state: StateType) {
-        console.log("d")
+    _callSubscriber() {
+        console.log("state change")
     },
     getState() {
         return this._state
     },
-    subscribe(observer: any) {
-        this._callSubscriber = observer;
+    subscribe(callback) {
+        this._callSubscriber = callback;
     },
-    dispatch(action: any) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likesCounts: 12,
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogPage.newMessage = action.body
-            this._callSubscriber(this._state);
-        } else if (action.type === SEND_MESSAGE) {
-            let body = this._state.dialogPage.newMessage;
-            this._state.dialogPage.messages.push({id: 4, message: body})
-            this._callSubscriber(this._state)
-        }
-    }
-}
+    dispatch(action) {
 
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogPage = dialogsReducer(this._state.dialogPage, action)
+        this._state.sidebarPage = sidebarReducer(this._state.sidebarPage, action)
+        //
+        // if (action.type === ADD_POST) {
+        //     let newPost = {
+        //         id: 5,
+        //         message: this._state.profilePage.newPostText,
+        //         likesCounts: 12,
+        //     }
+        //     this._state.profilePage.posts.push(newPost);
+        //     this._state.profilePage.newPostText = '';
+        //     this._callSubscriber()
+        // } else if (action.type === UPDATE_NEW_POST_TEXT) {
+        //     this._state.profilePage.newPostText = action.newText;
+        //     this._callSubscriber();
+        // } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+        //     this._state.dialogPage.newMessage = action.body
+        //     this._callSubscriber();
+        // } else if (action.type === SEND_MESSAGE) {
+        //     let body = this._state.dialogPage.newMessage;
+        //     this._state.dialogPage.messages.push({id: 4, message: body})
+        //     this._callSubscriber()
+        // }
+        this._callSubscriber();
+    },
+
+}
 // export type AddPostType = ReturnType<typeof addPostAC>
-export const addPostAC = () => {
-    return {
-        type: ADD_POST
-    }
-}
+// export const addPostAC = () => {
+//     return {
+//         type: ADD_POST
+//     }
+// }
 // export type UpdateNewPostTexType = ReturnType<typeof updateNewPostTextAC>
-export const updateNewPostTextAC = (newText: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText
-    }
-}
+// export const updateNewPostTextAC = (newText: string) => {
+//     return {
+//         type: UPDATE_NEW_POST_TEXT,
+//         newText
+//     }
+// }
 // export type SendMessageType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = () => {
-    return {
-        type: SEND_MESSAGE
-    }
-}
-// export type UpdateNewMessageTexType = ReturnType<typeof updateNewMessageTextAC>
-export const updateNewMessageTextAC = (body: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        body
-    }
-}
+// export const sendMessageAC = () => {
+//     return {
+//         type: SEND_MESSAGE
+//     }
+// }
+// // export type UpdateNewMessageTexType = ReturnType<typeof updateNewMessageTextAC>
+// export const updateNewMessageTextAC = (body: string) => {
+//     return {
+//         type: UPDATE_NEW_MESSAGE_TEXT,
+//         body
+//     }
+// }
 export default store;
 
 
