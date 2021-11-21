@@ -17,7 +17,22 @@ export type DialogsPropsType = {
     newMessage: string
 }
 
-export const dialogsReducer = (state: DialogsPropsType, action: DialogsActionType) => {
+let initialState: DialogsPropsType = {
+    dialogs: [
+        {id: 1, name: 'Oleg'},
+        {id: 2, name: 'Dimas'},
+        {id: 3, name: 'Any'},
+        {id: 4, name: 'Ilia'},
+    ],
+    messages: [
+        {id: 1, message: 'How are you'},
+        {id: 2, message: 'How are you'},
+        {id: 3, message: 'How are you'},
+    ],
+    newMessage: ""
+}
+
+export const dialogsReducer = (state= initialState, action: DialogsActionType) => {
     switch (action.type) {
         case SEND_MESSAGE : {
             let body = state.newMessage;
@@ -30,10 +45,11 @@ export const dialogsReducer = (state: DialogsPropsType, action: DialogsActionTyp
             state.newMessage = action.body
             return state
         }
-
+        default:
+            return state
     }
 
-    return state
+
 }
 
 export type DialogsActionType = SendMessageType & UpdateNewMessageTexType

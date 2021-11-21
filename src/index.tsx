@@ -7,6 +7,7 @@ import store from "./redux/state";
 
 
 export let rerenderEntireTree = () => {
+    debugger
     ReactDOM.render(
         <BrowserRouter>
             <App state={store._state} dispatch={store.dispatch.bind(store)} store ={store}/>

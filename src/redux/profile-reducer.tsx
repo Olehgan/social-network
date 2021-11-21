@@ -12,8 +12,16 @@ export type PostTypeProps = {
     posts: PostType[]
     newPostText: string
 }
+let initialState: PostTypeProps  = {
 
-export const profileReducer = (state: PostTypeProps, action: any) => {
+    posts: [
+        {id: 1, message: 'Hi my friend', likesCounts: 20},
+        {id: 2, message: 'How are you', likesCounts: 15},
+    ],
+    newPostText: ""
+}
+
+export const profileReducer = (state = initialState, action: ProfileActionType) => {
     switch (action.type) {
         case ADD_POST : {
             let newPost = {
@@ -29,11 +37,11 @@ export const profileReducer = (state: PostTypeProps, action: any) => {
             state.newPostText = action.newText;
             return state
         }
+        default  :
+            return state
     }
-
-    return state
 }
-export type profileActionType = AddPostType & UpdateNewPostTexType
+export type ProfileActionType = AddPostType & UpdateNewPostTexType
 export type AddPostType = ReturnType<typeof addPostAC>
 export const addPostAC = () => {
     return {

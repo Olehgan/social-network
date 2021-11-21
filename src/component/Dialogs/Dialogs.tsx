@@ -3,7 +3,7 @@ import s from './Dialogs.module.css'
 import {DialogItems} from "./DialogItem/DialogItem";
 import {Messages} from "./Message/Message";
 import {StoreType} from "../../redux/state";
-import {updateNewMessageTextAC} from "../../redux/dialog-reducer";
+import {sendMessageAC, updateNewMessageTextAC} from "../../redux/dialog-reducer";
 
 export type DialogsProps = {
     store: StoreType
@@ -47,8 +47,8 @@ export const Dialogs = (props: DialogsProps) => {
         </div>
     )
 }
-
-function sendMessageAC(): any {
-    throw new Error("Function not implemented.");
-}
+//
+// function sendMessageAC(): any {
+//     throw new Error("Function not implemented.");
+// }
 
