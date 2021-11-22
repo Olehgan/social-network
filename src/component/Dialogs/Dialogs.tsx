@@ -2,28 +2,30 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItems} from "./DialogItem/DialogItem";
 import {Messages} from "./Message/Message";
-import {StoreType} from "../../redux/state";
-import {sendMessageAC, updateNewMessageTextAC} from "../../redux/dialog-reducer";
+import {DialogsPropsType} from "../../redux/dialog-reducer";
 
 export type DialogsProps = {
-    store: StoreType
+    onSendMessageClick: () => void
+    onUpdateNewMessageChange: (newMessage: string) => void
+    state: DialogsPropsType
+
 }
 
 export const Dialogs = (props: DialogsProps) => {
-    let state = props.store._state
+    let state = props.state
 
-    let dialogsElement = state.dialogPage.dialogs.map((d) => <DialogItems name={d.name} id={d.id}/>)
-    let messagesElement = state.dialogPage.messages.map((m) => <Messages message={m.message}/>)
-    let newMessage = state.dialogPage.newMessage
+    let dialogsElement = state.dialogs.map((d) => <DialogItems name={d.name} id={d.id}/>)
+    let messagesElement = state.messages.map((m) => <Messages message={m.message}/>)
+    let newMessage = state.newMessage
 
-    let onSendMessageClick = () => {
-        props.store.dispatch(sendMessageAC())
+    let onSendMessageClickHandler = () => {
+      props.onSendMessageClick()
 
     }
 
-    let onUpdateNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let onUpdateNewMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         newMessage = e.currentTarget.value
-        props.store.dispatch(updateNewMessageTextAC(newMessage))
+        props.onUpdateNewMessageChange(newMessage)
     }
     return (
         <div className={s.dialogs}>
@@ -35,10 +37,10 @@ export const Dialogs = (props: DialogsProps) => {
                 <div>
                     <div>
                         <textarea placeholder='Enter text' value={newMessage}
-                                  onChange={onUpdateNewMessageChange}> </textarea>
+                                  onChange={onUpdateNewMessageChangeHandler}> </textarea>
                     </div>
                     <div>
-                        <button onClick={onSendMessageClick}>
+                        <button onClick={onSendMessageClickHandler}>
                             Send
                         </button>
                     </div>
@@ -47,8 +49,4 @@ export const Dialogs = (props: DialogsProps) => {
         </div>
     )
 }
-//
-// function sendMessageAC(): any {
-//     throw new Error("Function not implemented.");
-// }
 
