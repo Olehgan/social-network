@@ -2,21 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import App from './App';
-import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
+import StoreContext from "./StoreContext";
 
 
 export let rerenderEntireTree = () => {
     debugger
     ReactDOM.render(
         <BrowserRouter>
-            <App  store ={store}/>
+            <StoreContext.Provider value={store}>
+                <App/>
+            </StoreContext.Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );
 }
-store.subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree);
 rerenderEntireTree();
 
 
-reportWebVitals();
+// reportWebVitals();

@@ -8,12 +8,12 @@ import {News} from './component/News/News';
 import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
 import {Users} from "./component/Users/Users";
-import {StoreType} from "./redux/store";
 import {DialogContainer} from "./component/Dialogs/DialogContainer";
+import {StoreType} from "./redux/store";
 
 
 type  AppPropsType = {
-    store: StoreType
+    // store: StoreType
     // dialogs: DialogType[]
     // messages: MessageType[]
     // posts: PostType[]
@@ -30,9 +30,11 @@ const App = (props: AppPropsType) => {
                         <Profile
                             // posts={props.store._state.profilePage.posts} dispatch={props.store.dispatch}
                             // newPostText={props.store._state.profilePage.newPostText}
-                            store={ props.store}
+                            // store={ props.store}
                         />}/>
-                    <Route path={'/dialogs'} element={<DialogContainer store={props.store} newMessage={props.store._state.dialogPage}/>}/>
+                    <Route path={'/dialogs'} element={
+                        <DialogContainer
+                        />}/>
                     <Route path={'/users/'} element={<Users/>}/>
                     <Route path={'/news/'} element={<News/>}/>
                     <Route path={'/music/'} element={<Music/>}/>

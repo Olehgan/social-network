@@ -12,7 +12,8 @@ type MyPostsTypeProps = {
 
 export const MyPosts = (props: MyPostsTypeProps) => {
 
-    let postElements = props.state.profilePage.posts.map((p) => <Post messages={p.message} likesCounts={p.likesCounts}/>)
+    let postElements = props.state.profilePage.posts.map((p) => <Post messages={p.message}
+                                                                      likesCounts={p.likesCounts}/>)
 
     let addPostHandler = () => {
         props.addPost()
