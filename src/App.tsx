@@ -9,7 +9,6 @@ import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
 import {Users} from "./component/Users/Users";
 import {DialogContainer} from "./component/Dialogs/DialogContainer";
-import {StoreType} from "./redux/store";
 
 
 type  AppPropsType = {
@@ -33,8 +32,7 @@ const App = (props: AppPropsType) => {
                             // store={ props.store}
                         />}/>
                     <Route path={'/dialogs'} element={
-                        <DialogContainer
-                        />}/>
+                        <DialogContainer/>}/>
                     <Route path={'/users/'} element={<Users/>}/>
                     <Route path={'/news/'} element={<News/>}/>
                     <Route path={'/music/'} element={<Music/>}/>
