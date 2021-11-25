@@ -32,7 +32,7 @@ let initialState: DialogsPropsType = {
     newMessage: ""
 }
 
-export const dialogsReducer = (state= initialState, action: DialogsActionType) => {
+export const dialogsPage = (state= initialState, action: DialogsActionType) => {
     switch (action.type) {
         case SEND_MESSAGE : {
             let body = state.newMessage;
@@ -67,4 +67,4 @@ export const updateNewMessageTextAC = (body: string) => {
     }
 }
 
-export default dialogsReducer;
+export default dialogsPage;

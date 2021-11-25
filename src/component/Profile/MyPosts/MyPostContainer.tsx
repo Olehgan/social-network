@@ -1,38 +1,73 @@
 import React from 'react';
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
-import StoreContext from "../../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
+import {addPostAC, PostTypeProps, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
+//
+// type MyPostsTypeProps = {
+//     // store: StoreType
+// }
+//
+// export const MyPostContainer = (props: MyPostsTypeProps) => {
+//     // let state = props.store._state
+//     //
+//     // let addPost = () => {
+//     //     props.store.dispatch(addPostAC())
+//     // }
+//     // let onNewPostTextChange = (newPostText: string) => {
+//     //     props.store.dispatch(updateNewPostTextAC(newPostText))
+//     // }
+//
+//     return (
+//         <StoreContext.Consumer>
+//             {
+//             (store) => {
+//                 let state = store._state;
+//
+//                 let addPost = () => {
+//                     store.dispatch(addPostAC())
+//                 }
+//                 let onNewPostTextChange = (newPostText: string) => {
+//                     store.dispatch(updateNewPostTextAC(newPostText))
+//                 }
+//                 return <MyPosts addPost={addPost}
+//                                 onNewPostTextChange={onNewPostTextChange}
+//                                 state={state}/>
+//             }
+//         }
+//         </StoreContext.Consumer>
+//     )
+// }
 
-type MyPostsTypeProps = {
-    // store: StoreType
+type MSTP = {
+    // newPostText: string
+    // posts: PostType[]
+    profilePage:PostTypeProps
 }
 
-export const MyPostContainer = (props: MyPostsTypeProps) => {
-    // let state = props.store._state
-    //
-    // let addPost = () => {
-    //     props.store.dispatch(addPostAC())
-    // }
-    // let onNewPostTextChange = (newPostText: string) => {
-    //     props.store.dispatch(updateNewPostTextAC(newPostText))
-    // }
+type MDTP = {
+    addPost: () =>void
+    onNewPostTextChange: (newPostText: string) =>void
+}
 
-    return (
-        <StoreContext.Consumer>
-            {
-            (store) => {
-                let state = store._state;
+let mapSteToProps = (state: AppStateType): MSTP => {
+    return {
+        // newPostText: state.profilePage.newPostText,
+        // posts: state.profilePage.posts
+        profilePage:state.profilePage
+    }
 
-                let addPost = () => {
-                    store.dispatch(addPostAC())
-                }
-                let onNewPostTextChange = (newPostText: string) => {
-                    store.dispatch(updateNewPostTextAC(newPostText))
-                }
-                return <MyPosts addPost={addPost} onNewPostTextChange={onNewPostTextChange} state={state}/>
-            }
+}
+let mapDispatchToProps = (dispatch: Dispatch): MDTP => {
+    return {
+        addPost: () => {
+            dispatch(addPostAC())
+        },
+        onNewPostTextChange: (newPostText: string) => {
+            dispatch(updateNewPostTextAC(newPostText))
         }
-        </StoreContext.Consumer>
-    )
+    }
 }
+export const MyPostContainer = connect<MSTP, MDTP, {}, AppStateType>(mapSteToProps, mapDispatchToProps)(MyPosts);

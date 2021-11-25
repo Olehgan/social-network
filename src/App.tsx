@@ -11,11 +11,8 @@ import {Users} from "./component/Users/Users";
 import {DialogContainer} from "./component/Dialogs/DialogContainer";
 
 
+
 type  AppPropsType = {
-    // store: StoreType
-    // dialogs: DialogType[]
-    // messages: MessageType[]
-    // posts: PostType[]
 }
 const App = (props: AppPropsType) => {
 
@@ -31,8 +28,7 @@ const App = (props: AppPropsType) => {
                             // newPostText={props.store._state.profilePage.newPostText}
                             // store={ props.store}
                         />}/>
-                    <Route path={'/dialogs'} element={
-                        <DialogContainer/>}/>
+                    <Route path={'/dialogs'} element={<DialogContainer/>}/>
                     <Route path={'/users/'} element={<Users/>}/>
                     <Route path={'/news/'} element={<News/>}/>
                     <Route path={'/music/'} element={<Music/>}/>

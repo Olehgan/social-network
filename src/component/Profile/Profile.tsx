@@ -2,12 +2,12 @@ import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostContainer} from "./MyPosts/MyPostContainer";
 
-type ProfileTypeProps = {
-    // store: StoreType
-}
+//
+// type ProfileTypeProps = {
+//     // store: StoreType
+// }
 
-export const Profile = (props: ProfileTypeProps) => {
-
+export const Profile = () => {
     return (
         <div>
             <ProfileInfo/>
