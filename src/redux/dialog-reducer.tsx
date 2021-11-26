@@ -35,7 +35,7 @@ let initialState: DialogsPropsType = {
 export const dialogsReducer = (state= initialState, action: DialogsActionType) => {
     let stateCopy =  {
         ...state,
-        messages: [...state.messages]
+        // messages: [...state.messages]
     }
     switch (action.type) {
         case SEND_MESSAGE : {
