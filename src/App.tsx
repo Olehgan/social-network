@@ -11,10 +11,7 @@ import {Users} from "./component/Users/Users";
 import {DialogContainer} from "./component/Dialogs/DialogContainer";
 
 
-
-type  AppPropsType = {
-}
-const App = (props: AppPropsType) => {
+const App = () => {
 
     return (
         <div className="app-wrapper">
@@ -22,12 +19,7 @@ const App = (props: AppPropsType) => {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path={'/profile'} element={
-                        <Profile
-                            // posts={props.store._state.profilePage.posts} dispatch={props.store.dispatch}
-                            // newPostText={props.store._state.profilePage.newPostText}
-                            // store={ props.store}
-                        />}/>
+                    <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/dialogs'} element={<DialogContainer/>}/>
                     <Route path={'/users/'} element={<Users/>}/>
                     <Route path={'/news/'} element={<News/>}/>

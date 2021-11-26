@@ -32,18 +32,22 @@ let initialState: DialogsPropsType = {
     newMessage: ""
 }
 
-export const dialogsPage = (state= initialState, action: DialogsActionType) => {
+export const dialogsReducer = (state= initialState, action: DialogsActionType) => {
     switch (action.type) {
         case SEND_MESSAGE : {
-            let body = state.newMessage;
-            state.messages.push({id: 4, message: body})
-            state.newMessage = '';
-            return state
+            let stateCopy = {...state}
+            let body = stateCopy.newMessage;
+            stateCopy.messages = [...state.messages]
+            stateCopy.messages.push({id: 4, message: body})
+            stateCopy.newMessage = '';
+            return stateCopy
         }
 
         case UPDATE_NEW_MESSAGE_TEXT : {
-            state.newMessage = action.body
-            return state
+            let stateCopy = {...state};
+            stateCopy.messages = [...state.messages]
+            stateCopy.newMessage = action.body
+            return stateCopy
         }
         default:
             return state
@@ -67,4 +71,4 @@ export const updateNewMessageTextAC = (body: string) => {
     }
 }
 
-export default dialogsPage;
+export default dialogsReducer;

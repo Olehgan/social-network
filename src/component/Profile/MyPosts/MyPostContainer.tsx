@@ -3,7 +3,7 @@ import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
-import {addPostAC, PostTypeProps, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {addPostAC, PostType, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 //
 // type MyPostsTypeProps = {
@@ -42,21 +42,21 @@ import {addPostAC, PostTypeProps, updateNewPostTextAC} from "../../../redux/prof
 // }
 
 type MSTP = {
-    // newPostText: string
-    // posts: PostType[]
-    profilePage:PostTypeProps
+    newPostText: string
+    posts: PostType[]
+    // profilePage:PostTypeProps
 }
 
 type MDTP = {
-    addPost: () =>void
-    onNewPostTextChange: (newPostText: string) =>void
+    addPost: () => void
+    onNewPostTextChange: (newPostText: string) => void
 }
 
 let mapSteToProps = (state: AppStateType): MSTP => {
     return {
-        // newPostText: state.profilePage.newPostText,
-        // posts: state.profilePage.posts
-        profilePage:state.profilePage
+        newPostText: state.profilePage.newPostText,
+        posts: state.profilePage.posts
+        // profilePage:state.profilePage
     }
 
 }
