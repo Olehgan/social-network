@@ -5,6 +5,7 @@ const SET_USERS = 'SET_USERS'
 
 export type UserType = {
     id: number,
+    photos: string
     followed: boolean,
     fullName: string,
     status: string,
@@ -18,35 +19,23 @@ export  type UsersTypeProps = {
 }
 
 let initialState: UsersTypeProps = {
-    users: [
-        {
-            id: 1, followed: false, fullName: "Oleg", status: "very good",
-            location: {country: 'Belarus', city: 'Minsk',}
-        },
-        {
-            id: 2, followed: true, fullName: "Ilia", status: "very good",
-            location: {country: 'Belarus', city: 'Minsk',}
-        },
-        {
-            id: 3, followed: false, fullName: "Kodaly", status: "very good",
-            location: {country: 'Belarus', city: 'Minsk',}
-        },
-    ],
+    users: [],
 
 }
 
 export const usersReducer = (state = initialState, action: UsersActionType) => {
-
+    debugger
     switch (action.type) {
+
         case FOLLOW :
             return {
                 ...state,
-                users: state.users.filter(u => u.id === action.userId ? {...u, followed: true} : u)
+                users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
         case UNFOLLOW :
             return {
                 ...state,
-                users: state.users.filter(u => u.id === action.userId ? {...u, followed: false} : u)
+                users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
         case SET_USERS :
             return {
@@ -74,7 +63,7 @@ export const unfollowAC = (userId: number) => {
     } as const
 }
 export type SetUsersType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: any) => {
+export const setUsersAC = (users: UserType[]) => {
     return {
         type: SET_USERS,
         users

@@ -3,7 +3,7 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import {DialogsPropsType, sendMessageAC, updateNewMessageTextAC} from "../../redux/dialog-reducer";
+import {DialogsPropsType, sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 //
 //
 // export type DialogsProps = {
