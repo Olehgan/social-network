@@ -3,21 +3,6 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 
 
-<<<<<<< HEAD
-export type UserType = {
-    id: number,
-    photos: string
-    followed: boolean,
-    fullName: string,
-    status: string,
-    location: {
-        country: string,
-        city: string
-    }
-}
-export  type UsersTypeProps = {
-    users: UserType[]
-=======
 export type UsersType = {
     name: string,
     id: number,
@@ -30,22 +15,13 @@ export type UsersType = {
 }
 export  type UsersTypeProps = {
     users: UsersType[]
->>>>>>> ce28705 (make API request)
 }
 
 let initialState: UsersTypeProps = {
     users: [],
-<<<<<<< HEAD
-
 }
 
 export const usersReducer = (state = initialState, action: UsersActionType) => {
-    debugger
-=======
-}
-
-export const usersReducer = (state = initialState, action: UsersActionType) => {
->>>>>>> ce28705 (make API request)
     switch (action.type) {
 
         case FOLLOW :
@@ -84,11 +60,7 @@ export const unfollowAC = (userId: number) => {
     } as const
 }
 export type SetUsersType = ReturnType<typeof setUsersAC>
-<<<<<<< HEAD
-export const setUsersAC = (users: UserType[]) => {
-=======
 export const setUsersAC = (users: UsersType[]) => {
->>>>>>> ce28705 (make API request)
     return {
         type: SET_USERS,
         users
