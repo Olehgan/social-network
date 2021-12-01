@@ -7,7 +7,6 @@ import {Profile} from "./component/Profile/Profile";
 import {News} from './component/News/News';
 import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
-import {Users} from "./component/Users/Users";
 import {DialogContainer} from "./component/Dialogs/DialogContainer";
 import {UsersContainer} from "./component/Users/UsersContainer";
 
@@ -19,6 +18,7 @@ const App = () => {
             <Header/>
             <Navbar/>
             <div className='app-wrapper-content'>
+
                 <Routes>
                     <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/dialogs'} element={<DialogContainer/>}/>
