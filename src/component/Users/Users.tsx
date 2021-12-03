@@ -13,16 +13,18 @@ type UsersTypeProps = {
 
 
 export const Users = (props: UsersTypeProps) => {
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
-            debugger
-            props.setUsers(res.data.items)
-        })
-
+    let getUsers = () => {
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
+                debugger
+                props.setUsers(res.data.items)
+            })
+        }
     }
-
     return (
+
         <div>
+            <button onClick={getUsers}>Get users</button>
             {
                 props.users.map(u =>
                     <div key={u.id}>
