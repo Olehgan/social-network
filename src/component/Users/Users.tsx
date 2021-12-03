@@ -14,8 +14,7 @@ type UsersTypeProps = {
 
 export class Users extends React.Component<UsersTypeProps> {
 
-    constructor(props: UsersTypeProps) {
-        super(props);
+    componentDidMount() {
         if (this.props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
                 debugger
@@ -24,6 +23,15 @@ export class Users extends React.Component<UsersTypeProps> {
         }
     }
 
+    // constructor(props: UsersTypeProps) {
+    //     super(props);
+    //     if (this.props.users.length === 0) {
+    //         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
+    //             debugger
+    //             this.props.setUsers(res.data.items)
+    //         })
+    //     }
+    // }
     // getUsers = () => {
     //     if (this.props.users.length === 0) {
     //         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
@@ -32,7 +40,6 @@ export class Users extends React.Component<UsersTypeProps> {
     //         })
     //     }
     // }
-
     render() {
         return <div>
             {/*<button onClick={this.getUsers}>Get users</button>*/}
