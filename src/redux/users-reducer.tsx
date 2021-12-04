@@ -1,6 +1,7 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+const SET_USERS_COUNT = 'SET_USERS_COUNT'
 
 
 export type UsersType = {
@@ -13,12 +14,21 @@ export type UsersType = {
     status: string | null,
     followed: boolean
 }
+
 export  type UsersTypeProps = {
     users: UsersType[]
+    totalCount:number
+    error:string
+    pageSize:number
+    currentPage:number
 }
 
 let initialState: UsersTypeProps = {
     users: [],
+    totalCount:30,
+    pageSize:5,
+    currentPage:3,
+    error:''
 }
 
 export const usersReducer = (state = initialState, action: UsersActionType) => {
@@ -37,14 +47,19 @@ export const usersReducer = (state = initialState, action: UsersActionType) => {
         case SET_USERS :
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
             }
+        case SET_USERS_COUNT :
+            return {
+                ...state, currentPage:action.currentPage
+            }
+
         default:
             return state
     }
 }
 
-export type UsersActionType = FollowType | UnfollowType | SetUsersType
+export type UsersActionType = FollowType | UnfollowType | SetUsersType | SetUsersCountType
 export type FollowType = ReturnType<typeof followAC>
 export const followAC = (userId: number) => {
     return {
@@ -64,6 +79,13 @@ export const setUsersAC = (users: UsersType[]) => {
     return {
         type: SET_USERS,
         users
+    } as const
+}
+export type SetUsersCountType = ReturnType<typeof setUsersCountAC>
+export const setUsersCountAC = (currentPage: number) => {
+    return {
+        type: SET_USERS_COUNT,
+        currentPage
     } as const
 }
 export default usersReducer;
