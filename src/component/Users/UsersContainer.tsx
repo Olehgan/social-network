@@ -3,7 +3,14 @@ import {connect} from "react-redux";
 import {Users} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import {followAC, setUsersAC, setUsersCountAC, unfollowAC, UsersType} from "../../redux/users-reducer";
+import {
+    followAC,
+    setUsersAC,
+    setCurrentPageAC,
+    unfollowAC,
+    UsersType,
+    setTotalCountAC
+} from "../../redux/users-reducer";
 
 
 type MSTP  = {
@@ -17,8 +24,9 @@ type MSTP  = {
 type MDTP  = {
     follow: (userId: number) =>void
     unfollow: (userId: number) => void
-    setUsers: (users:any) => void
-    setUsersCount: (currentPage:number) =>void
+    setUsers: (users: UsersType[]) => void
+    setCurrentPage: (pageNumber:number) =>void
+    setTotalUsersCount: (totalUserCount:number)=>void
 }
 
 let mapStateToProps = (state: AppStateType):MSTP => {
@@ -27,6 +35,7 @@ let mapStateToProps = (state: AppStateType):MSTP => {
         totalCount:state.usersPage.totalCount,
         pageSize:state.usersPage.pageSize,
         currentPage:state.usersPage.currentPage
+
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch) => {
@@ -40,9 +49,12 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         setUsers: (users:UsersType[]) => {
             dispatch(setUsersAC(users))
         },
-       setUsersCount: (currentPage:number) => {
-        dispatch(setUsersCountAC(currentPage))
+       setCurrentPage: (pageNumber:number) => {
+        dispatch(setCurrentPageAC(pageNumber))
     },
+        setTotalUsersCount: (totalCount:number)=>{
+            dispatch(setTotalCountAC(totalCount))
+        }
     }
 }
 

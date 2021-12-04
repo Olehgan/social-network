@@ -7,8 +7,9 @@ import s from './Users.module.css'
 type UsersTypeProps = {
     users: UsersType[]
     follow: (userId: number) => void
-    setUsersCount: (currentPage: number) => void
+    setCurrentPage: (currentPage: number) => void
     setUsers: (users: UsersType[]) => void
+    setTotalUsersCount: (totalUserCount: number) => void
     unfollow: (userId: number) => void
     totalCount: number
     pageSize: number
@@ -20,30 +21,43 @@ export class Users extends React.Component<UsersTypeProps> {
 
     componentDidMount() {
         if (this.props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?paga=${this.props.currentPage}&count{this.props.pageSise}`).then(res => {
                 this.props.setUsers(res.data.items)
+                this.props.setTotalUsersCount(res.data.totalCount)
             })
         }
     }
 
+    onPageChange = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(res => {
+                this.props.setUsers(res.data.items)
+                this.props.setTotalUsersCount(res.data.totalCount)
+            })
+    }
+
     render() {
-        let pageCount = Math.ceil(this.props.totalCount  / this.props.pageSize)
+        let pageCount = Math.ceil(this.props.totalCount / this.props.pageSize)
         console.log(pageCount)
         let pages = [];
         for (let i = 1; i <= pageCount; i++) {
             pages.push(i)
         }
         return (
-
             <div>
                 <div>
                     {
-                        pages.map(p =>  {
-                         return   <span className={this.props.currentPage === p ? s.selectedPage : ''} onClick={()=>{
-                         this.props.setUsersCount(p)}
-                         }>{p}</span>
+                        pages.map(p => {
+                            return <span
+                                className={this.props.currentPage === p ? s.selectedPage : ''}
+                                onClick={() => {
+                                    this.onPageChange(p)
+                                }
+                                }>{p}</span>
                         })
                     }
+
                     {/*<span>1</span>*/}
                     {/*<span className={s.selectedPage}>2</span>*/}
                     {/*<span>3</span>*/}

@@ -1,8 +1,8 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
-const SET_USERS_COUNT = 'SET_USERS_COUNT'
-
+const SET_CURRENT_PAGE = 'SET_USERS_COUNT'
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 
 export type UsersType = {
     name: string,
@@ -25,9 +25,9 @@ export  type UsersTypeProps = {
 
 let initialState: UsersTypeProps = {
     users: [],
-    totalCount:30,
+    totalCount:0,
     pageSize:5,
-    currentPage:3,
+    currentPage:1,
     error:''
 }
 
@@ -47,19 +47,23 @@ export const usersReducer = (state = initialState, action: UsersActionType) => {
         case SET_USERS :
             return {
                 ...state,
-                users: [...action.users]
+                users: action.users
             }
-        case SET_USERS_COUNT :
+        case SET_CURRENT_PAGE :
             return {
                 ...state, currentPage:action.currentPage
             }
 
+        case SET_TOTAL_COUNT:
+            return {
+                ...state,totalCount:action.totalCount
+            }
         default:
             return state
     }
 }
 
-export type UsersActionType = FollowType | UnfollowType | SetUsersType | SetUsersCountType
+export type UsersActionType = FollowType | UnfollowType | SetUsersType | SetUsersCountType|SetTotalCountType
 export type FollowType = ReturnType<typeof followAC>
 export const followAC = (userId: number) => {
     return {
@@ -81,11 +85,18 @@ export const setUsersAC = (users: UsersType[]) => {
         users
     } as const
 }
-export type SetUsersCountType = ReturnType<typeof setUsersCountAC>
-export const setUsersCountAC = (currentPage: number) => {
+export type SetUsersCountType = ReturnType<typeof setCurrentPageAC>
+export const setCurrentPageAC = (currentPage: number) => {
     return {
-        type: SET_USERS_COUNT,
+        type: SET_CURRENT_PAGE,
         currentPage
+    } as const
+}
+export type SetTotalCountType = ReturnType<typeof setTotalCountAC>
+export const setTotalCountAC = (totalCount: number) => {
+    return {
+        type: SET_TOTAL_COUNT,
+        totalCount
     } as const
 }
 export default usersReducer;
