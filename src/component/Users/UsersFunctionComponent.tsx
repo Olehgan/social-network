@@ -30,6 +30,7 @@ export const UsersF = (props: UsersFTypeProps) => {
                               <img key={u.id}
                                    src={userPhoto}
                                    className={'usersPhoto'}
+                                   alt={'image'}
                               />
                           </div>
                           <div>
