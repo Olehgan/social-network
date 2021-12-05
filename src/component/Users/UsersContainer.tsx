@@ -1,16 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Users} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {
     followAC,
-    setUsersAC,
     setCurrentPageAC,
+    setTotalCountAC,
+    setUsersAC,
     unfollowAC,
-    UsersType,
-    setTotalCountAC
+    UsersType
 } from "../../redux/users-reducer";
+import {UsersAPIComponent} from "./UsersAPIComponent";
 
 
 type MSTP  = {
@@ -58,4 +58,4 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
-export const UsersContainer = connect<MSTP,MDTP,{},AppStateType>(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect<MSTP,MDTP,{},AppStateType>(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
