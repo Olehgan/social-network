@@ -73,48 +73,48 @@ export const usersReducer = (state = initialState, action: UsersActionType) => {
 
 export type UsersActionType = FollowType | UnfollowType | SetUsersType | SetUsersCountType|SetTotalCountType|ToggleISFetchingType
 
-export type FollowType = ReturnType<typeof followAC>
-export const followAC = (userId: number) => {
+export type FollowType = ReturnType<typeof follow>
+export const follow = (userId: number) => {
     return {
         type: FOLLOW,
         userId
     } as const
 }
 
-export type UnfollowType = ReturnType<typeof unfollowAC>
-export const unfollowAC = (userId: number) => {
+export type UnfollowType = ReturnType<typeof unfollow>
+export const unfollow = (userId: number) => {
     return {
         type: UNFOLLOW,
         userId
     } as const
 }
 
-export type SetUsersType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: UsersType[]) => {
+export type SetUsersType = ReturnType<typeof setUsers>
+export const setUsers = (users: UsersType[]) => {
     return {
         type: SET_USERS,
         users
     } as const
 }
 
-export type SetUsersCountType = ReturnType<typeof setCurrentPageAC>
-export const setCurrentPageAC = (currentPage: number) => {
+export type SetUsersCountType = ReturnType<typeof setCurrentPage>
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage
     } as const
 }
 
-export type SetTotalCountType = ReturnType<typeof setTotalCountAC>
-export const setTotalCountAC = (totalCount: number) => {
+export type SetTotalCountType = ReturnType<typeof setTotalUsersCount>
+export const setTotalUsersCount = (totalCount: number) => {
     return {
         type: SET_TOTAL_COUNT,
         totalCount
     } as const
 }
 
-export type ToggleISFetchingType = ReturnType<typeof toggleISFetchAC>
-export const toggleISFetchAC = (isFetching: boolean) => {
+export type ToggleISFetchingType = ReturnType<typeof toggleIsFetching>
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching

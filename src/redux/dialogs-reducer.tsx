@@ -59,14 +59,14 @@ export const dialogsReducer = (state= initialState, action: DialogsActionType) =
 }
 
 export type DialogsActionType = SendMessageType & UpdateNewMessageTexType
-export type SendMessageType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = () => {
+export type SendMessageType = ReturnType<typeof sendMessage>
+export const sendMessage = () => {
     return {
         type: SEND_MESSAGE
     }
 }
-export type UpdateNewMessageTexType = ReturnType<typeof updateNewMessageTextAC>
-export const updateNewMessageTextAC = (body: string) => {
+export type UpdateNewMessageTexType = ReturnType<typeof updateNewMessageText>
+export const updateNewMessageText = (body: string) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
         body
