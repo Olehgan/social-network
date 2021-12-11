@@ -1,16 +1,18 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostContainer} from "./MyPosts/MyPostContainer";
+import {ProfileType} from "../../redux/profile-reducer";
 
-//
-// type ProfileTypeProps = {
-//     // store: StoreType
-// }
 
-export const Profile = () => {
+type ProfileTypeProps = {
+  profile:ProfileType
+    toggleIsFetching: (isFetch: boolean) => void
+}
+
+export const Profile = (props:ProfileTypeProps) => {
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile} toggleIsFetching={props.toggleIsFetching}/>
             <MyPostContainer/>
         </div>
     )

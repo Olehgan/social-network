@@ -5,8 +5,8 @@ import {Messages} from "./Message/Message";
 import {DialogsPropsType} from "../../redux/dialogs-reducer";
 
 export type DialogsProps = {
-    onSendMessageClick: () => void
-    onUpdateNewMessageChange: (newMessage: string) => void
+    sendMessage: () => void
+    updateNewMessageText: (newMessage: string) => void
     dialogsPage: DialogsPropsType
 
 }
@@ -19,13 +19,13 @@ export const Dialogs = (props: DialogsProps) => {
     let newMessage = state.newMessage
 
     let onSendMessageClickHandler = () => {
-        props.onSendMessageClick()
+        props.sendMessage()
 
     }
 
     let onUpdateNewMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         newMessage = e.currentTarget.value
-        props.onUpdateNewMessageChange(newMessage)
+        props.updateNewMessageText(newMessage)
     }
     return (
         <div className={s.dialogs}>

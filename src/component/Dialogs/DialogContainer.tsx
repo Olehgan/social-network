@@ -2,8 +2,7 @@ import React from "react";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-import {DialogsPropsType, sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {DialogsPropsType, sendMessage, updateNewMessageText} from "../../redux/dialogs-reducer";
 //
 //
 // export type DialogsProps = {
@@ -37,29 +36,32 @@ import {DialogsPropsType, sendMessageAC, updateNewMessageTextAC} from "../../red
 // }
 
 type MSTP = {
-    dialogsPage:DialogsPropsType
+    dialogsPage: DialogsPropsType
 }
 
 type MDTP = {
-    onSendMessageClick :()=>void
-    onUpdateNewMessageChange: (newMessage:string)=>void
+    sendMessage: () => void
+    updateNewMessageText: (newMessage: string) => void
 }
 
-let mapSteToProps = (state: AppStateType):MSTP => {
+let mapSteToProps = (state: AppStateType): MSTP => {
     return {
-        dialogsPage:state.dialogsPage
+        dialogsPage: state.dialogsPage
     }
 }
-let mapDispatchToProps = (dispatch : Dispatch):MDTP => {
-    return {
-        onSendMessageClick :()=>{
-            dispatch(sendMessageAC())
-        },
-        onUpdateNewMessageChange: (newMessage:string)=>{
-            dispatch(updateNewMessageTextAC(newMessage))
-        }
+// let mapDispatchToProps = (dispatch : Dispatch):MDTP => {
+//     return {
+//         onSendMessageClick :()=>{
+//             dispatch(sendMessageAC())
+//         },
+//         onUpdateNewMessageChange: (newMessage:string)=>{
+//             dispatch(updateNewMessageText(newMessage))
+//         }
+//
+//     }
+// }
 
-    }
-}
+export const DialogContainer = connect<MSTP, MDTP, {}, AppStateType>(mapSteToProps, {
+    sendMessage, updateNewMessageText
 
-export const DialogContainer = connect<MSTP,MDTP,{},AppStateType>(mapSteToProps, mapDispatchToProps)(Dialogs);
+})(Dialogs);
