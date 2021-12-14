@@ -8,8 +8,10 @@ export  type DataType = {
 }
 export type  AuthMeType = {
     resultCode: number
-    messages: string[],
+    fieldsErrors: string[]
+    messages: string[]
     data: DataType
+    isAuth:boolean
 }
 
 
@@ -21,16 +23,21 @@ let initialState: AuthMeType = {
     },
     resultCode: 0,
     messages: [],
+    fieldsErrors: [],
+    isAuth:false
 }
 
-export type initialStateType = typeof initialState
 
-export const authReducer = (state: initialStateType, action: AuthActionType) => {
+
+export const authReducer = (state= initialState, action: AuthActionType) => {
+debugger
     switch (action.type) {
+
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth:true
             }
         default:
             return state
@@ -39,6 +46,7 @@ export const authReducer = (state: initialStateType, action: AuthActionType) => 
 
 export type SetAuthUserData = ReturnType<typeof setAuthUserData>
 export const setAuthUserData = (data: DataType) => {
+    debugger
     return {
         type: SET_USER_DATA,
         data

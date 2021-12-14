@@ -12,7 +12,7 @@ export const ProfileInfo = (props:ProfileInfoPropsType) => {
     if(!props.profile){
       return   <Preloader/>
     }
-    debugger
+
     return (
 
         <div>

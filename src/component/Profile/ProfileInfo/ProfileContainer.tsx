@@ -42,17 +42,13 @@ type MDTP = {
 export class ProfileComponent extends React.Component<ProfileTypeProps> {
 
     componentDidMount() {
-        debugger
         let userId = this.props.userId
         if (!userId) {
             userId = '2'
         }
         // this.props.toggleIsFetching(true)
         axios.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(res => {
-            // debugger
-            // this.props.toggleIsFetching(false)
             this.props.setUserProfile(res.data)
-            debugger
         })
     }
 
@@ -67,9 +63,7 @@ export class ProfileComponent extends React.Component<ProfileTypeProps> {
 }
 
 let mapStateToProps = (state: AppStateType) => {
-    debugger
     return {
-
         profile: state.profilePage.profile
     }
 }

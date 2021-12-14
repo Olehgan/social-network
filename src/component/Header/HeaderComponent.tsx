@@ -1,7 +1,7 @@
 import React from 'react';
 import {Header} from "./Header";
 import axios from "axios";
-import {DataType, setAuthUserData} from "../../redux/auth-reducer";
+import {AuthMeType, DataType, setAuthUserData} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 
@@ -19,9 +19,14 @@ type HeaderComponentType = MSTP & MDTP
 
  class HeaderComponent extends React.Component<HeaderComponentType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+        axios.get<AuthMeType>(`https://social-network.samuraijs.com/api/1.0/auth/me`,{
+            withCredentials:true
+        })
             .then(res => {
-            this.props.setAuthUserData(res.data.data)
+                if(res.data.resultCode===0){
+                    this.props.setAuthUserData(res.data.data)
+                }
+
             })
     }
 
