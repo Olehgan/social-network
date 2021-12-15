@@ -3,6 +3,7 @@ import {UsersType} from "../../redux/users-reducer";
 import userPhoto from './../../assests/images/young-user-icon_5f450e6354e9e.png'
 import s from './Users.module.css'
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersTypeProps = {
     users: UsersType[]
@@ -41,9 +42,11 @@ export const Users = (props: UsersTypeProps) => {
                       <span>
                           <div>
                               <NavLink to={'/profile/' + u.id}> <img key={u.id}
-                                      src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                      alt={'image'}
-                                      className={s.usersPhoto}
+                                                                     src={u.photos.small !== null
+                                                                         ? u.photos.small
+                                                                         : userPhoto}
+                                                                     alt={'image'}
+                                                                     className={s.usersPhoto}
                               /></NavLink>
                           </div>
                           <div>
@@ -51,23 +54,36 @@ export const Users = (props: UsersTypeProps) => {
                                   ? <button onClick={() => {
                                       props.unfollow(u.id)
                                   }}>Unfollow</button>
-
                                   : <button onClick={() => {
-                                      props.follow(u.id)
-                                  }}>Follow </button>
+                                      axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                          {}, {
+                                              withCredentials: true,
+                                              headers: {
+                                                  'API-KEY': '5883697e-1933-44d6-978d-c735fd6eee7a'
+                                              }
+
+
+                                          })
+                                          .then(res => {
+                                              debugger
+                                              if (res.data.resultCode === 0) {
+                                                  props.follow(u.id)
+                                              }
+                                          })
+                                  }}>Follow</button>
                               }
-                          </div>
-                      </span>
+                                  </div>
+                                  </span>
                         <span>
-                            <span>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                            </span>
-                                <span>
-                                    <div>{"u.location.city"}</div>
-                                    <div>{"u.location.country"}</div>
-                                </span>
-                        </span>
+                                  <span>
+                                  <div>{u.name}</div>
+                                  <div>{u.status}</div>
+                                  </span>
+                                  <span>
+                                  <div>{"u.location.city"}</div>
+                                  <div>{"u.location.country"}</div>
+                                  </span>
+                                  </span>
                     </div>
                 )}
         </div>

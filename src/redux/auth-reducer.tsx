@@ -30,9 +30,7 @@ let initialState: AuthMeType = {
 
 
 export const authReducer = (state= initialState, action: AuthActionType) => {
-debugger
     switch (action.type) {
-
         case SET_USER_DATA:
             return {
                 ...state,
@@ -46,7 +44,6 @@ debugger
 
 export type SetAuthUserData = ReturnType<typeof setAuthUserData>
 export const setAuthUserData = (data: DataType) => {
-    debugger
     return {
         type: SET_USER_DATA,
         data
