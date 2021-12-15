@@ -52,29 +52,40 @@ export const Users = (props: UsersTypeProps) => {
                           <div>
                               {u.followed
                                   ? <button onClick={() => {
-                                      props.unfollow(u.id)
-                                  }}>Unfollow</button>
-                                  : <button onClick={() => {
-                                      axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                          {}, {
+                                      axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                          {
                                               withCredentials: true,
                                               headers: {
                                                   'API-KEY': '5883697e-1933-44d6-978d-c735fd6eee7a'
                                               }
-
-
                                           })
                                           .then(res => {
                                               debugger
                                               if (res.data.resultCode === 0) {
-                                                  props.follow(u.id)
+                                                  props.unfollow(u.id)
                                               }
                                           })
+                                      props.unfollow(u.id)
+                                  }}>Unfollow</button>
+                                      : <button onClick={() => {
+                                      axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                  {}, {
+                                      withCredentials: true,
+                                      headers: {
+                                      'API-KEY': '5883697e-1933-44d6-978d-c735fd6eee7a'
+                                  }
+                                  })
+                                      .then(res => {
+                                      debugger
+                                      if (res.data.resultCode === 0) {
+                                      props.follow(u.id)
+                                  }
+                                  })
                                   }}>Follow</button>
-                              }
+                                  }
                                   </div>
                                   </span>
-                        <span>
+                                  <span>
                                   <span>
                                   <div>{u.name}</div>
                                   <div>{u.status}</div>
@@ -84,9 +95,9 @@ export const Users = (props: UsersTypeProps) => {
                                   <div>{"u.location.country"}</div>
                                   </span>
                                   </span>
-                    </div>
-                )}
-        </div>
-    )
-}
+                                  </div>
+                                  )}
+                                  </div>
+                                  )
+                              }
 
