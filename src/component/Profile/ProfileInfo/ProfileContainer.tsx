@@ -1,11 +1,11 @@
 import React from 'react';
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {Profile} from "../Profile";
 import {ProfileType, setUserProfile} from "../../../redux/profile-reducer";
 import {toggleIsFetching} from "../../../redux/users-reducer";
 import {withParams} from "./whithParams/whithParams";
+import {getUserProfile} from "../../../api/Api";
 //
 // export function withParams<T>(Component: ComponentType<T>) {
 //     return (props: T) => {
@@ -47,7 +47,7 @@ export class ProfileComponent extends React.Component<ProfileTypeProps> {
             userId = '2'
         }
         // this.props.toggleIsFetching(true)
-        axios.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(res => {
+        getUserProfile(userId).then(res => {
             this.props.setUserProfile(res.data)
         })
     }
