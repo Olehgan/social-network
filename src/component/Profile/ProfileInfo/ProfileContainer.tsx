@@ -44,7 +44,7 @@ export class ProfileComponent extends React.Component<ProfileTypeProps> {
     componentDidMount() {
         let userId = this.props.userId
         if (!userId) {
-            userId = '2'
+            userId = '20829'
         }
         // this.props.toggleIsFetching(true)
         getUserProfile(userId).then(res => {
