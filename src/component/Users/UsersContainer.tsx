@@ -13,7 +13,7 @@ import {
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader";
-import {getUsers} from "../../api/Api";
+import {userAPI} from "../../api/Api";
 
 //
 // export type UsersAPIType = {
@@ -46,7 +46,7 @@ type MDTP = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalUserCount: number) => void
     toggleIsFetching: (isFetch: boolean) => void
-    setToggleFollowingProgress: (isFetch: boolean,userId:number) => void
+    setToggleFollowingProgress: (isFetch: boolean, userId: number) => void
 
 
 }
@@ -60,7 +60,7 @@ export class UsersAPIComponent extends React.Component<UsersAPITypeProps> {
         // &count{this.props.pageSize}`,{
         //     withCredentials:true
         // })
-        getUsers(this.props.currentPage, this.props.pageSize)
+        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(res => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(res.data.items)
@@ -75,7 +75,7 @@ export class UsersAPIComponent extends React.Component<UsersAPITypeProps> {
         // &count=${this.props.pageSize}`,{
         //     withCredentials:true
         // })
-        getUsers(pageNumber, this.props.pageSize).then(res => {
+        userAPI.getUsers(pageNumber, this.props.pageSize).then(res => {
             this.props.toggleIsFetching(false)
             this.props.setUsers(res.data.items)
         })

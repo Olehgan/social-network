@@ -3,7 +3,7 @@ import {UsersType} from "../../redux/users-reducer";
 import userPhoto from './../../assests/images/young-user-icon_5f450e6354e9e.png'
 import s from './Users.module.css'
 import {NavLink} from "react-router-dom";
-import {deleteUnfollow, postFollow} from "../../api/Api";
+import {userAPI} from "../../api/Api";
 
 type UsersTypeProps = {
     users: UsersType[]
@@ -66,7 +66,7 @@ export const Users = (props: UsersTypeProps) => {
                                                 //         }
                                                 //     })
 
-                                                deleteUnfollow(u.id).then(res => {
+                                                userAPI.deleteUnfollow(u.id).then(res => {
                                                     if (res.data.resultCode === 0) {
                                                         props.unfollow(u.id)
                                                     }
@@ -84,7 +84,7 @@ export const Users = (props: UsersTypeProps) => {
                                                 //     'API-KEY': '5883697e-1933-44d6-978d-c735fd6eee7a'
                                                 // }
                                                 // })
-                                                postFollow(u.id).then(res => {
+                                                userAPI.postFollow(u.id).then(res => {
                                                     if (res.data.resultCode === 0) {
                                                         props.follow(u.id)
                                                     }

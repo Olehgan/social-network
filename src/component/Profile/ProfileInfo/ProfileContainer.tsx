@@ -5,7 +5,7 @@ import {Profile} from "../Profile";
 import {ProfileType, setUserProfile} from "../../../redux/profile-reducer";
 import {toggleIsFetching} from "../../../redux/users-reducer";
 import {withParams} from "./whithParams/whithParams";
-import {getUserProfile} from "../../../api/Api";
+import {userAPI} from "../../../api/Api";
 //
 // export function withParams<T>(Component: ComponentType<T>) {
 //     return (props: T) => {
@@ -47,7 +47,7 @@ export class ProfileComponent extends React.Component<ProfileTypeProps> {
             userId = '20829'
         }
         // this.props.toggleIsFetching(true)
-        getUserProfile(userId).then(res => {
+        userAPI.getUserProfile(userId).then(res => {
             this.props.setUserProfile(res.data)
         })
     }
