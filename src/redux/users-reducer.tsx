@@ -173,6 +173,19 @@ export const followTC = (id: number) => {
 }
 
 
+export const unfollowTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setToggleFollowingProgress(true, id))
+        userAPI.postFollow(id).then(res => {
+            if (res.data.resultCode === 0) {
+                unfollow(id)
+            }
+            dispatch(setToggleFollowingProgress(false, id))
+        })
+
+    }
+}
+
 export type UsersActionType =
     FollowType
     | UnfollowType
