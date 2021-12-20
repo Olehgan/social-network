@@ -147,6 +147,7 @@ export const setToggleFollowingProgress = (isFetching: boolean, userId: number) 
 
 export const getUsersTC = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
+        debugger
         dispatch(toggleIsFetching(true))
         userAPI.getUsers(currentPage, pageSize)
             .then(res => {
@@ -154,6 +155,20 @@ export const getUsersTC = (currentPage: number, pageSize: number) => {
                 dispatch(setUsers(res.data.items))
                 dispatch(setTotalUsersCount(res.data.totalCount))
             })
+    }
+}
+
+
+export const followTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setToggleFollowingProgress(true, id))
+        userAPI.postFollow(id).then(res => {
+            if (res.data.resultCode === 0) {
+                follow(id)
+            }
+            dispatch(setToggleFollowingProgress(false, id))
+        })
+
     }
 }
 
