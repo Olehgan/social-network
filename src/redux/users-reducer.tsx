@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {userAPI} from "../api/Api";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -140,6 +143,21 @@ export const setToggleFollowingProgress = (isFetching: boolean, userId: number) 
         userId
     } as const
 }
+
+
+export const getUsersTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        userAPI.getUsers(currentPage, pageSize)
+            .then(res => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(res.data.items))
+                dispatch(setTotalUsersCount(res.data.totalCount))
+            })
+    }
+}
+
+
 export type UsersActionType =
     FollowType
     | UnfollowType
