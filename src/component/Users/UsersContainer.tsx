@@ -3,17 +3,19 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
     follow,
+    followTC,
+    getUsersTC,
     setCurrentPage,
     setToggleFollowingProgress,
     setTotalUsersCount,
     setUsers,
     toggleIsFetching,
     unfollow,
+    unfollowTC,
     UsersType
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader";
-import {userAPI} from "../../api/Api";
 
 //
 // export type UsersAPIType = {
@@ -47,38 +49,43 @@ type MDTP = {
     setTotalUsersCount: (totalUserCount: number) => void
     toggleIsFetching: (isFetch: boolean) => void
     setToggleFollowingProgress: (isFetch: boolean, userId: number) => void
-
-
+    getUsersTC: (currentPage: number, pageSize: number) => void
+    followTC: (id: number) => void
+    unfollowTC: (id: number) => void
 }
 export type UsersAPITypeProps = MDTP & MSTP
 
 export class UsersAPIComponent extends React.Component<UsersAPITypeProps> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}
-        // &count{this.props.pageSize}`,{
-        //     withCredentials:true
-        // })
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(res => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(res.data.items)
-                this.props.setTotalUsersCount(res.data.totalCount)
-            })
+        debugger
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        // this.props.toggleIsFetching(true)
+        // // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}
+        // // &count{this.props.pageSize}`,{
+        // //     withCredentials:true
+        // // })
+        // userAPI.getUsers(this.props.currentPage, this.props.pageSize)
+        //     .then(res => {
+        //         this.props.toggleIsFetching(false)
+        //         this.props.setUsers(res.data.items)
+        //         this.props.setTotalUsersCount(res.data.totalCount)
+        //     })
     }
 
     onPageChange = (pageNumber: number) => {
-        this.props.toggleIsFetching(true)
-        this.props.setCurrentPage(pageNumber)
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}
-        // &count=${this.props.pageSize}`,{
-        //     withCredentials:true
+        debugger
+        this.props.getUsersTC(pageNumber, this.props.pageSize)
+        // this.props.toggleIsFetching(true)
+        // this.props.setCurrentPage(pageNumber)
+        // // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}
+        // // &count=${this.props.pageSize}`,{
+        // //     withCredentials:true
+        // // })
+        // userAPI.getUsers(pageNumber, this.props.pageSize).then(res => {
+        //     this.props.toggleIsFetching(false)
+        //     this.props.setUsers(res.data.items)
         // })
-        userAPI.getUsers(pageNumber, this.props.pageSize).then(res => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(res.data.items)
-        })
     }
 
     render() {
@@ -96,6 +103,9 @@ export class UsersAPIComponent extends React.Component<UsersAPITypeProps> {
                    setToggleFollowingProgress={this.props.setToggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
                    isFetching={this.props.isFetching}
+                   followTC={this.props.followTC}
+                   unfollowTC={this.props.unfollowTC}
+
             />
         </>
     }
@@ -137,5 +147,7 @@ let mapStateToProps = (state: AppStateType): MSTP => {
 
 export const UsersContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps,
     {
-        follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, setToggleFollowingProgress
+        follow, unfollow, setUsers,
+        setCurrentPage, setTotalUsersCount, toggleIsFetching,
+        setToggleFollowingProgress, getUsersTC, followTC, unfollowTC
     })(UsersAPIComponent)
