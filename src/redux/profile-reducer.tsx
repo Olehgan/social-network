@@ -1,9 +1,12 @@
+import {Dispatch} from "redux";
+import {userAPI} from "../api/Api";
+
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_ TEXT'
 const ADD_POST = 'ADD_POST'
 const SET_USER_PROFILE = 'SET_USERS_PROFILE'
 
 export type ProfileType = {
-    aboutMe:string,
+    aboutMe: string,
     contacts: {
         facebook: string,
         "website": null,
@@ -15,14 +18,14 @@ export type ProfileType = {
         "mainLink": null
     },
     "lookingForAJob": true,
-    "lookingForAJobDescription":string,
-    "fullName":string,
+    "lookingForAJobDescription": string,
+    "fullName": string,
     "userId": number,
     "photos": {
         "small": string,
-        "large":string
+        "large": string
     }
-}| null
+} | null
 export type PostType = {
     id: number
     message: string
@@ -32,7 +35,7 @@ export type PostType = {
 export type PostTypeProps = {
     posts: PostType[]
     newPostText: string
-    profile:ProfileType
+    profile: ProfileType
 }
 let initialState: PostTypeProps = {
     newPostText: "",
@@ -78,13 +81,13 @@ export const profileReducer = (state = initialState, action: ProfileActionType) 
             return state
     }
 }
-export type ProfileActionType = AddPostType & UpdateNewPostTexType & SetUserProfileType
 export type AddPostType = ReturnType<typeof addPostAC>
 export const addPostAC = () => {
     return {
         type: ADD_POST
     }
 }
+
 export type UpdateNewPostTexType = ReturnType<typeof updateNewPostTextAC>
 export const updateNewPostTextAC = (newText: string) => {
     return {
@@ -92,6 +95,7 @@ export const updateNewPostTextAC = (newText: string) => {
         newText
     }
 }
+
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: ProfileType) => {
     return {
@@ -100,5 +104,13 @@ export const setUserProfile = (profile: ProfileType) => {
     }
 }
 
+export type ProfileActionType = AddPostType & UpdateNewPostTexType & SetUserProfileType
 
+export const getUsersProfileTC = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        userAPI.getUserProfile(userId).then(res => {
+            dispatch(setUserProfile(res.data))
+        })
+    }
+}
 export default profileReducer;
