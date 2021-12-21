@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {ProfileType} from "../redux/profile-reducer";
+import {AuthMeType} from "../redux/auth-reducer";
 
 
 let instance = axios.create({
@@ -23,4 +24,10 @@ export const userAPI = {
     getUserProfile(userId: string) {
         return instance.get<ProfileType>(`profile/${userId}`)
     }
+}
+export const authAPI = {
+    me(){
+        return instance.get<AuthMeType>(`auth/me`)
+    }
+
 }
