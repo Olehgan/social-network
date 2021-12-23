@@ -16,6 +16,7 @@ import {
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader";
+import {Navigate} from "react-router-dom";
 
 //
 // export type UsersAPIType = {
@@ -39,6 +40,7 @@ type MSTP = {
     currentPage: number
     isFetching: boolean
     followingInProgress: number[]
+    isAuth:boolean
 }
 
 type MDTP = {
@@ -89,6 +91,7 @@ export class UsersAPIComponent extends React.Component<UsersAPITypeProps> {
     }
 
     render() {
+        if(!this.props.isAuth)return <Navigate to={'/login'}/>
         return <>
             <div>
                 {this.props.isFetching ? <Preloader/> : null}
@@ -119,7 +122,8 @@ let mapStateToProps = (state: AppStateType): MSTP => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth:state.authMe.isAuth
     }
 }
 // let mapDispatchToProps = (dispatch: Dispatch) => {

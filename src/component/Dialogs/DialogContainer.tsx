@@ -37,6 +37,7 @@ import {DialogsPropsType, sendMessage, updateNewMessageText} from "../../redux/d
 
 type MSTP = {
     dialogsPage: DialogsPropsType
+    isAuth:boolean
 }
 
 type MDTP = {
@@ -46,7 +47,8 @@ type MDTP = {
 
 let mapSteToProps = (state: AppStateType): MSTP => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth:state.authMe.isAuth
     }
 }
 // let mapDispatchToProps = (dispatch : Dispatch):MDTP => {
