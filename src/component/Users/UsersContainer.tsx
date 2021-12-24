@@ -17,6 +17,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader";
 import {Navigate} from "react-router-dom";
+import {withAuthNavigate} from "../../hoc/withAuthNavigate";
 
 //
 // export type UsersAPIType = {
@@ -154,4 +155,4 @@ export const UsersContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToPr
         follow, unfollow, setUsers,
         setCurrentPage, setTotalUsersCount, toggleIsFetching,
         setToggleFollowingProgress, getUsersTC, followTC, unfollowTC
-    })(UsersAPIComponent)
+    })(withAuthNavigate(UsersAPIComponent))

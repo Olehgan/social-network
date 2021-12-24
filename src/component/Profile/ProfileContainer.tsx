@@ -4,37 +4,13 @@ import {AppStateType} from "../../redux/redux-store";
 import {Profile} from "./Profile";
 import {getUsersProfileTC, ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {toggleIsFetching} from "../../redux/users-reducer";
-import {withParams} from "./ProfileInfo/whithParams/whithParams";
-import { Navigate } from 'react-router-dom';
-
-//
-// export function withParams<T>(Component: ComponentType<T>) {
-//     return (props: T) => {
-//         const {userId} = useParams();
-//
-//         return (
-//             <Component
-//                 userId={userId}
-//                 {...props}
-//             />
-//         );
-//     };
-// };
-//
-//
-// type ProfileTypeProps = {
-//     userId?: string
-//     profile: ProfileType
-//     toggleIsFetching: (isFetch: boolean) => void
-//     setUserProfile: (profile: ProfileType) => void
-
+import {withParams} from "../../hoc/whithParams";
+import {withAuthNavigate} from "../../hoc/withAuthNavigate";
 
 type MSTP = {
     profile: ProfileType
     userId?: string
-    isAuth:boolean
-
-
+    // isAuth:boolean
 }
 type MDTP = {
     setUserProfile: (profile: ProfileType) => void
@@ -52,14 +28,10 @@ export class ProfileComponent extends React.Component<ProfileComponentTypeProps>
             userId = '20829'
         }
         this.props.getUsersProfileTC(userId)
-        // this.props.toggleIsFetching(true)
-        // userAPI.getUserProfile(userId).then(res => {
-        //     this.props.setUserProfile(res.data)
-        // })
     }
 
     render() {
-        if(!this.props.isAuth)return <Navigate to={'/login'}/>
+        // if(!this.props.isAuth)return <Navigate to={'/login'}/>
         return (
             <div>
                 <Profile {...this.props} profile={this.props.profile}/>
@@ -69,15 +41,23 @@ export class ProfileComponent extends React.Component<ProfileComponentTypeProps>
 
 }
 
+// let withAuthNavigateContainer = withAuthNavigate(ProfileComponent)
+
 let mapStateToProps = (state: AppStateType) => {
     return {
         profile: state.profilePage.profile,
-        isAuth:state.authMe.isAuth
+        // isAuth:state.authMe.isAuth
     }
 }
+//
+// export const ProfileContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps, {
+//     setUserProfile,
+//     toggleIsFetching,
+//     getUsersProfileTC
+// })(withParams(ProfileComponent))
 
 export const ProfileContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps, {
     setUserProfile,
     toggleIsFetching,
     getUsersProfileTC
-})(withParams(ProfileComponent))
+}) (withAuthNavigate(withParams(ProfileComponent)))
