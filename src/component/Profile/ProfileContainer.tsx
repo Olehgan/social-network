@@ -5,7 +5,6 @@ import {Profile} from "./Profile";
 import {getUsersProfileTC, ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {toggleIsFetching} from "../../redux/users-reducer";
 import {withParams} from "../../hoc/whithParams";
-import {withAuthNavigate} from "../../hoc/withAuthNavigate";
 
 type MSTP = {
     profile: ProfileType
@@ -49,15 +48,19 @@ let mapStateToProps = (state: AppStateType) => {
         // isAuth:state.authMe.isAuth
     }
 }
-//
-// export const ProfileContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps, {
-//     setUserProfile,
-//     toggleIsFetching,
-//     getUsersProfileTC
-// })(withParams(ProfileComponent))
+
 
 export const ProfileContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps, {
     setUserProfile,
     toggleIsFetching,
     getUsersProfileTC
-}) (withAuthNavigate(withParams(ProfileComponent)))
+}) (withParams(ProfileComponent))
+// export const ProfileContainer = compose<React.ComponentType>(
+//     withAuthNavigate,
+//     withParams,
+//     connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps, {
+//         setUserProfile,
+//         toggleIsFetching,
+//         getUsersProfileTC,
+//     })
+//     (ProfileComponent))

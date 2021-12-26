@@ -58,6 +58,7 @@ let mapSteToProps = (state: AppStateType): MSTP => {
         posts: state.profilePage.posts
         // profilePage:state.profilePage
     }
+
 }
 let mapDispatchToProps = (dispatch: Dispatch): MDTP => {
     return {
