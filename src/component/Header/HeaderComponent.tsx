@@ -39,7 +39,6 @@ class HeaderComponent extends React.Component<HeaderComponentType> {
 }
 
 let mapStateToProps = (state: AppStateType): MSTP => {
-    debugger
     return {
         login: state.authMe.login,
         isAuth: state.authMe.isAuth

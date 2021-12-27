@@ -127,5 +127,14 @@ export const getStatusTC = (userId: string) => {
         })
     }
 }
+
+export const updateStatusTC = (status: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status).then(res => {
+            debugger
+            dispatch(setStatus(status))
+        })
+    }
+}
 export type ProfileActionType = AddPostType & UpdateNewPostTexType & SetUserProfileType & SetStatusType
 export default profileReducer;

@@ -49,7 +49,6 @@ export class UsersAPIComponent extends React.Component<UsersAPITypeProps> {
     }
 
     onPageChange = (pageNumber: number) => {
-        debugger
         this.props.getUsersTC(pageNumber, this.props.pageSize)
     }
 

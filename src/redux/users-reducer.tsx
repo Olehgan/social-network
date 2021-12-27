@@ -73,7 +73,6 @@ export const usersReducer = (state = initialState, action: UsersActionType) => {
                 ...state, isFetching: action.isFetching
             }
         case TOGGLE_IS_FOLLOW_PROGRESS:
-            debugger
             return {
                 ...state, followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
@@ -135,7 +134,6 @@ export const toggleIsFetching = (isFetching: boolean) => {
 
 export type SetToggleFollowingProgressType = ReturnType<typeof setToggleFollowingProgress>
 export const setToggleFollowingProgress = (isFetching: boolean, userId: number) => {
-    debugger
     return {
 
         type: TOGGLE_IS_FOLLOW_PROGRESS,
@@ -147,7 +145,6 @@ export const setToggleFollowingProgress = (isFetching: boolean, userId: number) 
 
 export const getUsersTC = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
-        debugger
         dispatch(toggleIsFetching(true))
         userAPI.getUsers(currentPage, pageSize)
             .then(res => {
