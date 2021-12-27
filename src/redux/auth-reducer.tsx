@@ -32,7 +32,6 @@ let initialState: InitialStateType = {
 
 
 export const authReducer = (state = initialState, action: AuthActionType) => {
-    debugger
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -47,7 +46,6 @@ export const authReducer = (state = initialState, action: AuthActionType) => {
 
 export type SetAuthUserData = ReturnType<typeof setAuthUserData>
 export const setAuthUserData = (id: number, login: string, email: string) => {
-    debugger
     return {
         type: SET_USER_DATA,
         data: {id, login, email}
@@ -55,7 +53,6 @@ export const setAuthUserData = (id: number, login: string, email: string) => {
 }
 
 export const getAuthMeTC = ()=> {
-    debugger
     return (dispatch: Dispatch) => {
         authAPI.me().then(res => {
             if (res.data.resultCode === 0) {
