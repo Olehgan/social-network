@@ -14,26 +14,33 @@ export class ProfileStatus extends React.Component<ProfileStatusTypeProps> {
     }
 
     activateEditMode = () => {
-        debugger
         this.setState(
             {editMode: true})
     }
 
     deActivateEditMode = () => {
-        debugger
         this.setState(
             {editMode: false})
         this.props.updateStatusTC(this.state.status)
     }
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        debugger
         this.setState(
             {status: e.currentTarget.value})
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusTypeProps>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.status !== this.props.status){
+            this.setState(
+                {status: this.props.status})
+        }
+
+        console.log('componentDidUpdate')
+    }
+
     render() {
-debugger
+        console.log('render')
         return <div>
+
             {!this.state.editMode ?
                 <div>
                     <span onDoubleClick={this.activateEditMode}>{this.props.status || "----"}</span>

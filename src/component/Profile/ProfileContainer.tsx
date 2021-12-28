@@ -59,7 +59,7 @@ export class ProfileComponent extends React.Component<ProfileComponentTypeProps>
 // let withAuthNavigateContainer = withAuthNavigate(ProfileComponent)
 
 let mapStateToProps = (state: AppStateType) => {
-    debugger
+
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status
