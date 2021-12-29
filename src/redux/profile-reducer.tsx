@@ -130,7 +130,9 @@ export const getStatusTC = (userId: string) => {
 export const updateStatusTC = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(res => {
-            dispatch(setStatus(status))
+            if (res.data.resultCode === 0){
+                dispatch(setStatus(status))
+            }
         })
     }
 }

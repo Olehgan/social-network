@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {ProfileType} from "../redux/profile-reducer";
 import {AuthMeType} from "../redux/auth-reducer";
 
@@ -38,6 +38,23 @@ export const profileAPI = {
 export const authAPI = {
     me() {
         return instance.get<AuthMeType>(`auth/me`)
-    }
+    },
+    login(data: LoginParam) {
+        return instance.post<LoginParam, AxiosResponse<ResType<{ userId: string }>>>(`/auth/login`, data)
 
+    }
 }
+
+export type LoginParam = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: string
+}
+
+export type ResType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    data: D
+};
