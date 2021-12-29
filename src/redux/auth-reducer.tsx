@@ -31,12 +31,12 @@ export type  InitialStateType = {
 }
 
 let initialState: InitialStateType = {
+
     id: 1,
     email: '',
     login: '',
     isAuth: false
 }
-
 
 export const authReducer = (state = initialState, action: AuthActionType) => {
     switch (action.type) {
@@ -79,7 +79,16 @@ export const getAuthMeTC = () => {
         })
     }
 }
-
+export const LoginTC = (data: any) => {
+    return (dispatch: Dispatch) => {
+        debugger
+        authAPI.login(data).then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsAuth(true))
+            }
+        })
+    }
+}
 
 
 export type AuthActionType = SetAuthUserDataType | setIsAuthType
