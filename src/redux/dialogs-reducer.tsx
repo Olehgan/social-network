@@ -1,4 +1,4 @@
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
+// const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
 const SEND_MESSAGE = 'SEND_MESSAGE'
 
 
@@ -14,7 +14,7 @@ export  type MessageType = {
 export type DialogsPropsType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    newMessage: string
+    // newMessage: string
 }
 
 let initialState: DialogsPropsType = {
@@ -29,7 +29,7 @@ let initialState: DialogsPropsType = {
         {id: 2, message: 'How are you'},
         {id: 3, message: 'How are you'},
     ],
-    newMessage: ""
+    // newMessage: ""
 }
 
 export const dialogsReducer = (state= initialState, action: DialogsActionType) => {
@@ -39,17 +39,17 @@ export const dialogsReducer = (state= initialState, action: DialogsActionType) =
     // }
     switch (action.type) {
         case SEND_MESSAGE :
-            let body = state.newMessage;
+            let body = action.newMessage;
             return {
                 ...state,
                 messages:[...state.messages,{id: 4, message: body}],
                 newMessage : ''
             }
-        case UPDATE_NEW_MESSAGE_TEXT :
-            return {
-                ...state,
-                newMessage : action.body
-            }
+        // case UPDATE_NEW_MESSAGE_TEXT :
+        //     return {
+        //         ...state,
+        //         newMessage : action.body
+        //     }
         default:
             return state
     }
@@ -58,19 +58,20 @@ export const dialogsReducer = (state= initialState, action: DialogsActionType) =
 
 }
 
-export type DialogsActionType = SendMessageType & UpdateNewMessageTexType
+export type DialogsActionType = SendMessageType
 export type SendMessageType = ReturnType<typeof sendMessage>
-export const sendMessage = () => {
+export const sendMessage = (newMessage:string) => {
     return {
-        type: SEND_MESSAGE
+        type: SEND_MESSAGE,
+        newMessage
     }
 }
-export type UpdateNewMessageTexType = ReturnType<typeof updateNewMessageText>
-export const updateNewMessageText = (body: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        body
-    }
-}
+// export type UpdateNewMessageTexType = ReturnType<typeof updateNewMessageText>
+// export const updateNewMessageText = (body: string) => {
+//     return {
+//         type: UPDATE_NEW_MESSAGE_TEXT,
+//         body
+//     }
+// }
 
 export default dialogsReducer;

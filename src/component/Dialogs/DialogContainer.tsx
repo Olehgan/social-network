@@ -2,9 +2,8 @@ import React from "react";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {DialogsPropsType, sendMessage, updateNewMessageText} from "../../redux/dialogs-reducer";
+import {DialogsPropsType, sendMessage} from "../../redux/dialogs-reducer";
 import {withAuthNavigate} from "../../hoc/withAuthNavigate";
-import {compose} from "redux";
 //
 //
 // export type DialogsProps = {
@@ -43,8 +42,8 @@ type MSTP = {
 
 
 type MDTP = {
-    sendMessage: () => void
-    updateNewMessageText: (newMessage: string) => void
+    sendMessage: (newMessage:string) => void
+    // updateNewMessageText: (newMessage: string) => void
 }
 
 let mapSteToProps = (state: AppStateType): MSTP => {
@@ -54,7 +53,8 @@ let mapSteToProps = (state: AppStateType): MSTP => {
 }
 
 export const DialogContainer = connect<MSTP, MDTP, {}, AppStateType>(mapSteToProps, {
-    sendMessage, updateNewMessageText
+    sendMessage,
+    // updateNewMessageText
 
 })(withAuthNavigate(Dialogs));
 

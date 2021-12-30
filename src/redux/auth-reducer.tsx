@@ -4,6 +4,7 @@ import {authAPI} from "../api/Api";
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_IS_AUTH = 'SET_IS_AUTH'
 
+
 export  type AuthMeType = {
     data: {
         login: string,
@@ -14,7 +15,6 @@ export  type AuthMeType = {
     messages: string[],
     fieldsErrors: string[],
 }
-
 export  type AuthLoginType = {
     resultCode: number,
     messages: string[],
@@ -22,13 +22,13 @@ export  type AuthLoginType = {
         userId: string
     }
 }
-
 export type  InitialStateType = {
     id: number,
     email: string,
     login: string,
     isAuth: boolean
 }
+
 
 let initialState: InitialStateType = {
 
@@ -37,6 +37,7 @@ let initialState: InitialStateType = {
     login: '',
     isAuth: false
 }
+
 
 export const authReducer = (state = initialState, action: AuthActionType) => {
     switch (action.type) {

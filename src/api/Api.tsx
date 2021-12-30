@@ -39,22 +39,24 @@ export const authAPI = {
     me() {
         return instance.get<AuthMeType>(`auth/me`)
     },
-    login(data: LoginParam) {
-        return instance.post<LoginParam, AxiosResponse<ResType<{ userId: string }>>>(`/auth/login`, data)
+    login(data: LoginParams) {
+        return instance.post<LoginParams,AxiosResponse<ResponseType<{userId:string}>>>(`/auth/login`, data)
 
     }
+
 }
 
-export type LoginParam = {
+
+export type LoginParams = {
     email: string
     password: string
     rememberMe?: boolean
     captcha?: string
 }
 
-export type ResType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     fieldsErrors: Array<string>
     data: D
-};
+}
