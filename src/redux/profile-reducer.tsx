@@ -56,15 +56,15 @@ export const profileReducer = (state = initialState, action: ProfileActionType) 
         case ADD_POST :
             return {
                 ...state,
-                posts: [...state.posts, {id: 5, message: state.newPostText, likesCounts: 12,}],
+                posts: [...state.posts, {id: 5, message: action.newPostText, likesCounts: 12,}],
                 newPostText: ''
             }
-
-        case UPDATE_NEW_POST_TEXT :
-            return {
-                ...state,
-                newPostText: action.newText
-            }
+        //
+        // case UPDATE_NEW_POST_TEXT :
+        //     return {
+        //         ...state,
+        //         newPostText: action.newText
+        //     }
         case SET_USER_PROFILE :
             return {
                 ...state,
@@ -81,19 +81,20 @@ export const profileReducer = (state = initialState, action: ProfileActionType) 
     }
 }
 export type AddPostType = ReturnType<typeof addPostAC>
-export const addPostAC = () => {
+export const addPostAC = (newPostText: string) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        newPostText
     }
 }
 
-export type UpdateNewPostTexType = ReturnType<typeof updateNewPostTextAC>
-export const updateNewPostTextAC = (newText: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText
-    }
-}
+// export type UpdateNewPostTexType = ReturnType<typeof updateNewPostTextAC>
+// export const updateNewPostTextAC = (newText: string) => {
+//     return {
+//         type: UPDATE_NEW_POST_TEXT,
+//         newText
+//     }
+// }
 
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: ProfileType) => {
@@ -102,6 +103,7 @@ export const setUserProfile = (profile: ProfileType) => {
         profile
     }
 }
+
 export type SetStatusType = ReturnType<typeof setStatus>
 export const setStatus = (status: string) => {
     return {
@@ -130,11 +132,12 @@ export const getStatusTC = (userId: string) => {
 export const updateStatusTC = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(res => {
-            if (res.data.resultCode === 0){
+            if (res.data.resultCode === 0) {
                 dispatch(setStatus(status))
             }
         })
     }
 }
-export type ProfileActionType = AddPostType & UpdateNewPostTexType & SetUserProfileType & SetStatusType
+
+export type ProfileActionType = AddPostType & SetUserProfileType & SetStatusType
 export default profileReducer;

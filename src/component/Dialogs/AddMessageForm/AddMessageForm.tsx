@@ -1,18 +1,17 @@
-import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
-import {sendMessage} from "../../../redux/dialogs-reducer";
 import React from "react";
 
-type AddMessageFormType = {}
+type AddMessageFormType = {
+    sendMessage: (newMessage: string) => void
+}
 
 export const AddMessageForm = (props: AddMessageFormType) => {
-    let dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
             newMessage: '',
         },
         onSubmit: values => {
-            dispatch(sendMessage(values.newMessage))
+            props.sendMessage(values.newMessage)
             formik.resetForm();
         },
     });
@@ -28,7 +27,7 @@ export const AddMessageForm = (props: AddMessageFormType) => {
             </div>
             <div>
                 <button type={'submit'}>
-                    Send
+                  Add Message
                 </button>
             </div>
         </form>

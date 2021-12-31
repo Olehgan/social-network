@@ -3,7 +3,7 @@ import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
-import {addPostAC, PostType, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {addPostAC, PostType} from "../../../redux/profile-reducer";
 
 //
 // type MyPostsTypeProps = {
@@ -48,8 +48,8 @@ type MSTP = {
 }
 
 type MDTP = {
-    addPost: () => void
-    onNewPostTextChange: (newPostText: string) => void
+    addPost: (newPostText: string) => void
+    // onNewPostTextChange: (newPostText: string) => void
 }
 
 let mapSteToProps = (state: AppStateType): MSTP => {
@@ -62,12 +62,12 @@ let mapSteToProps = (state: AppStateType): MSTP => {
 }
 let mapDispatchToProps = (dispatch: Dispatch): MDTP => {
     return {
-        addPost: () => {
-            dispatch(addPostAC())
+        addPost: (newPostText: string) => {
+            dispatch(addPostAC(newPostText))
         },
-        onNewPostTextChange: (newPostText: string) => {
-            dispatch(updateNewPostTextAC(newPostText))
-        }
+        // onNewPostTextChange: (newPostText: string) => {
+        //     dispatch(updateNewPostTextAC(newPostText))
+        // }
     }
 }
 export const MyPostContainer = connect<MSTP, MDTP, {}, AppStateType>(mapSteToProps, mapDispatchToProps)(MyPosts);

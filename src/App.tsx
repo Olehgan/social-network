@@ -29,7 +29,7 @@ const App = () => {
                     <Route path={'/settings'} element={<Settings/>}/>
                     <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/404'} element={<h1>404. Page not Found </h1>}/>
-                    <Route path={'*'} element={<Navigate to={'/404'}/>}/>
+                    {/*<Route path={'*'} element={<Navigate to={'/404'}/>}/>*/}
 
 
                 </Routes>

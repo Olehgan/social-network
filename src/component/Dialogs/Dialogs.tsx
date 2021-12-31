@@ -3,10 +3,10 @@ import s from './Dialogs.module.css'
 import {DialogItems} from "./DialogItem/DialogItem";
 import {Messages} from "./Message/Message";
 import {DialogsPropsType} from "../../redux/dialogs-reducer";
-import {AddMessageForm} from "./AddMessageForm/AddMessageForm";
+import {AddMessageFormContainer} from "./AddMessageForm/AddMessageFormContainer";
 
 export type DialogsProps = {
-    sendMessage: (newMessage:string) => void
+    sendMessage: (newMessage: string) => void
     updateNewMessageText: (newMessage: string) => void
     dialogsPage: DialogsPropsType
     isAuth: boolean
@@ -47,7 +47,7 @@ export const Dialogs = (props: DialogsProps) => {
                     {/*        Send*/}
                     {/*    </button>*/}
                     {/*</div>*/}
-                    <AddMessageForm/>
+                    <AddMessageFormContainer/>
                 </div>
             </div>
         </div>
