@@ -2,7 +2,7 @@ import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {PostType} from "../../../redux/profile-reducer";
-import {AddNewPostForm} from "./AddNewPostForm/AddNewPostForm";
+import {AddMessageFormContainer} from "./AddNewPostForm/AddNewPostFormContainer";
 
 
 type MyPostsTypeProps = {
@@ -14,8 +14,6 @@ type MyPostsTypeProps = {
 }
 
 export const MyPosts = (props: MyPostsTypeProps) => {
-    // let state = props.profilePage
-
     let postElements = props.posts.map((p) =>
         <Post
             messages={p.message}
@@ -41,7 +39,7 @@ export const MyPosts = (props: MyPostsTypeProps) => {
             {/*        <button onClick={addPostHandler}> Add post</button>*/}
             {/*    </div>*/}
             {/*</div>*/}
-            <AddNewPostForm addPost={props.addPost}/>
+            <AddMessageFormContainer/>
             <div className={s.posts}>
                 {postElements}
             </div>
