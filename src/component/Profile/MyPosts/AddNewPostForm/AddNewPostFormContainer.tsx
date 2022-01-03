@@ -14,6 +14,9 @@ type MDTP = {
 export type AddNewPostFormComponentType = MSTP & MDTP
 
 class AddNewPostFormComponent extends React.Component<AddNewPostFormComponentType> {
+    componentDidMount() {
+    }
+
     render() {
         return (
             <div>

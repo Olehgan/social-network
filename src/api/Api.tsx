@@ -37,17 +37,19 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get<AuthMeType>(`auth/me`)
+        return instance.get<AuthMeType,AxiosResponse<ResponseType<{login:string,id:number,email:string}>>>(`auth/me`)
     },
-    login(data: LoginParams) {
-        return instance.post<LoginParams,AxiosResponse<ResponseType<{userId:string}>>>(`/auth/login`, data)
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{ userId: string }>>>(`/auth/login`, data)
 
+    },
+    logout() {
+        return instance.delete<ResponseType>(`/auth/login`)
     }
-
 }
 
 
-export type LoginParams = {
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe?: boolean

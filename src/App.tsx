@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./component/Navbar/Navbar";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {News} from './component/News/News';
 import {Music} from './component/Music/Music';
 import {Settings} from "./component/Settings/Settings";
@@ -9,7 +9,7 @@ import {DialogContainer} from "./component/Dialogs/DialogContainer";
 import {UsersContainer} from "./component/Users/UsersContainer";
 import {ProfileContainer} from "./component/Profile/ProfileContainer";
 import {HeaderContainer} from "./component/Header/HeaderComponent";
-import { Login } from './component/Login/Login';
+import {LoginContainer} from "./component/Login/LoginContainer";
 
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
-                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/login'} element={<LoginContainer/>}/>
                     <Route path={'/404'} element={<h1>404. Page not Found </h1>}/>
                     {/*<Route path={'*'} element={<Navigate to={'/404'}/>}/>*/}
 

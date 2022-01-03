@@ -8,8 +8,9 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
-import {LoginTC} from "../../redux/auth-reducer";
 import {useDispatch} from "react-redux";
+import {LoginParamsType} from "../../api/Api";
+import { Navigate } from 'react-router-dom';
 
 type FormikErrorType = {
     email?: string
@@ -18,7 +19,7 @@ type FormikErrorType = {
 }
 
 
-export const Login = () => {
+export const Login = (props: { loginTC: (data: LoginParamsType) => void , isAuth:boolean}) => {
     let dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
@@ -44,10 +45,13 @@ export const Login = () => {
 
         onSubmit: values => {
             // alert(JSON.stringify(values));
-            dispatch(LoginTC(values))
+            props.loginTC(values)
             formik.resetForm();
         },
     })
+    if ( props.isAuth){
+        return <Navigate to={'/profile'}/>
+    }
     return (
         <Grid container justifyContent={'center'}>
             <Grid item justifyContent={'center'}>

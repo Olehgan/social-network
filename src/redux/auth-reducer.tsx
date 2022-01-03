@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/Api";
+import {authAPI, LoginParamsType} from "../api/Api";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_IS_AUTH = 'SET_IS_AUTH'
@@ -80,9 +80,8 @@ export const getAuthMeTC = () => {
         })
     }
 }
-export const LoginTC = (data: any) => {
+export const loginTC = (data: LoginParamsType) => {
     return (dispatch: Dispatch) => {
-        debugger
         authAPI.login(data).then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsAuth(true))
@@ -91,5 +90,13 @@ export const LoginTC = (data: any) => {
     }
 }
 
-
+export const logoutTC = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.logout().then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsAuth(false))
+            }
+        })
+    }
+}
 export type AuthActionType = SetAuthUserDataType | setIsAuthType

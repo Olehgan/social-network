@@ -18,7 +18,7 @@ export const AddNewPostForm = (props: AddNewPostFormType) => {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <div><textarea placeholder='Enter text'
+            <div><textarea placeholder='Enter post'
                            name='newPostText'
                            onChange={formik.handleChange}
                            value={formik.values.newPostText}
