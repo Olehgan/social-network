@@ -70,7 +70,7 @@ export const setIsAuth = (value: boolean) => {
     } as const
 }
 
-export const getAuthMeTC = () => {
+export const getAuthUserDataTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.me().then(res => {
             if (res.data.resultCode === 0) {

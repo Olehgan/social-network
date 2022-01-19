@@ -10,31 +10,45 @@ import {UsersContainer} from "./component/Users/UsersContainer";
 import {ProfileContainer} from "./component/Profile/ProfileContainer";
 import {HeaderContainer} from "./component/Header/HeaderComponent";
 import {LoginContainer} from "./component/Login/LoginContainer";
+import {connect} from "react-redux";
+import {AppStateType} from "./redux/redux-store";
+import {getAuthUserDataTC} from "./redux/auth-reducer";
 
 
-const App = () => {
+type MSTP = {}
 
-    return (
-        <div className="app-wrapper">
-            <HeaderContainer/>
-            <Navbar/>
-            <div className='app-wrapper-content'>
-                <Routes>
-                    <Route path={'/profile/:userId'} element={<ProfileContainer/>}/>
-                    <Route path={'/profile/'} element={<ProfileContainer/>}/>
-                    <Route path={'/dialogs'} element={<DialogContainer/>}/>
-                    <Route path={'/users'} element={<UsersContainer/>}/>
-                    <Route path={'/news'} element={<News/>}/>
-                    <Route path={'/music'} element={<Music/>}/>
-                    <Route path={'/settings'} element={<Settings/>}/>
-                    <Route path={'/login'} element={<LoginContainer/>}/>
-                    <Route path={'/404'} element={<h1>404. Page not Found </h1>}/>
-                    {/*<Route path={'*'} element={<Navigate to={'/404'}/>}/>*/}
-
-
-                </Routes>
-            </div>
-        </div>
-    );
+type MDTP = {
+    getAuthUserDataTC: () => void
 }
+
+type AppPropsType = MSTP & MDTP
+
+class App extends React.Component<AppPropsType> {
+    render() {
+        return (
+            <div className="app-wrapper">
+                <HeaderContainer/>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Routes>
+                        <Route path={'/profile/:userId'} element={<ProfileContainer/>}/>
+                        <Route path={'/profile/'} element={<ProfileContainer/>}/>
+                        <Route path={'/dialogs'} element={<DialogContainer/>}/>
+                        <Route path={'/users'} element={<UsersContainer/>}/>
+                        <Route path={'/news'} element={<News/>}/>
+                        <Route path={'/music'} element={<Music/>}/>
+                        <Route path={'/settings'} element={<Settings/>}/>
+                        <Route path={'/login'} element={<LoginContainer/>}/>
+                        <Route path={'/404'} element={<h1>404. Page not Found </h1>}/>
+                        {/*<Route path={'*'} element={<Navigate to={'/404'}/>}/>*/}
+                    </Routes>
+                </div>
+            </div>
+        );
+    }
+}
+
+export const AppContainer = connect<MSTP, MDTP, {}, AppStateType>(null,
+    {getAuthUserDataTC})(App)
+
 export default App;

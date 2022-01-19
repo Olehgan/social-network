@@ -17,6 +17,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader";
 import {withAuthNavigate} from "../../hoc/withAuthNavigate";
+import {compose} from "redux";
 
 type MSTP = {
     users: UsersType[]
