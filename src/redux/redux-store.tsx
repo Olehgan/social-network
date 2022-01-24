@@ -3,13 +3,12 @@ import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import usersReducer from "./users-reducer";
 import {authReducer} from "./auth-reducer";
-import thunkMiddleware from "redux-thunk"
-import {appReducer} from "./app-reducer";
+import  thunkMiddleware from "redux-thunk"
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    app: appReducer,
+    // sidebar: sidebarReducer
     usersPage: usersReducer,
     authMe: authReducer
 });
