@@ -1,5 +1,6 @@
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {authAPI, LoginParamsType} from "../api/Api";
+import {AppThunk} from "./redux-store";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_IS_AUTH = 'SET_IS_AUTH'
@@ -39,7 +40,7 @@ let initialState: InitialStateType = {
 }
 
 
-export const authReducer = (state = initialState, action: AuthActionType) => {
+export const authReducer = (state = initialState, action: AnyAction) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -62,6 +63,7 @@ export const setAuthUserData = (id: number, login: string, email: string) => {
         data: {id, login, email}
     } as const
 }
+
 export type setIsAuthType = ReturnType<typeof setIsAuth>
 export const setIsAuth = (value: boolean) => {
     return {
@@ -70,9 +72,9 @@ export const setIsAuth = (value: boolean) => {
     } as const
 }
 
-export const getAuthUserDataTC = () => {
+export const getAuthUserDataTC = (): AppThunk => {
     return (dispatch: Dispatch) => {
-        authAPI.me().then(res => {
+        return authAPI.me().then(res => {
             if (res.data.resultCode === 0) {
                 let {id, login, email} = res.data.data
                 dispatch(setAuthUserData(id, login, email))
@@ -80,7 +82,7 @@ export const getAuthUserDataTC = () => {
         })
     }
 }
-export const loginTC = (data: LoginParamsType) => {
+export const loginTC = (data: LoginParamsType): AppThunk => {
     return (dispatch: Dispatch) => {
         authAPI.login(data).then(res => {
             if (res.data.resultCode === 0) {
@@ -89,8 +91,7 @@ export const loginTC = (data: LoginParamsType) => {
         })
     }
 }
-
-export const logoutTC = () => {
+export const logoutTC = (): AppThunk => {
     return (dispatch: Dispatch) => {
         authAPI.logout().then(res => {
             if (res.data.resultCode === 0) {
@@ -99,4 +100,5 @@ export const logoutTC = () => {
         })
     }
 }
+
 export type AuthActionType = SetAuthUserDataType | setIsAuthType

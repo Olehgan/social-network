@@ -12,19 +12,29 @@ import {HeaderContainer} from "./component/Header/HeaderComponent";
 import {LoginContainer} from "./component/Login/LoginContainer";
 import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
-import {getAuthUserDataTC} from "./redux/auth-reducer";
+import {initializeAppTC} from "./redux/app-reducer";
+import {Preloader} from "./common/Preloader";
 
 
-type MSTP = {}
+type MSTP = {
+    initialized: boolean
+}
 
 type MDTP = {
-    getAuthUserDataTC: () => void
+    initializeAppTC: () => void
 }
 
 type AppPropsType = MSTP & MDTP
 
 class App extends React.Component<AppPropsType> {
+    componentDidMount() {
+        this.props.initializeAppTC()
+    }
+
     render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
         return (
             <div className="app-wrapper">
                 <HeaderContainer/>
@@ -48,7 +58,13 @@ class App extends React.Component<AppPropsType> {
     }
 }
 
-export const AppContainer = connect<MSTP, MDTP, {}, AppStateType>(null,
-    {getAuthUserDataTC})(App)
+let mapStateToProps = (state: AppStateType): MSTP => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+
+export const AppContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps,
+    {initializeAppTC})(App)
 
 export default App;

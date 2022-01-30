@@ -26,6 +26,7 @@ class HeaderComponent extends React.Component<HeaderComponentType> {
         //     }
         //
         // })
+        // this.props.getAuthUserDataTC()
     }
 
     render() {
