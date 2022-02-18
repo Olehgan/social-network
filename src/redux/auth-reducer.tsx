@@ -1,4 +1,4 @@
-import {AnyAction, Dispatch} from "redux";
+import {AnyAction} from "redux";
 import {authAPI, LoginParamsType} from "../api/Api";
 import {AppThunk} from "./redux-store";
 
@@ -71,19 +71,33 @@ export const setIsAuth = (value: boolean) => {
         value
     } as const
 }
+//
+// export const getAuthUserDataTC = (): AppThunk => {
+//     return (dispatch: Dispatch) => {
+//         return authAPI.me().then(res => {
+//             if (res.data.resultCode === 0) {
+//                 let {id, login, email} = res.data.data
+//                 dispatch(setAuthUserData(id, login, email))
+//             }
+//         })
+//     }
+// }
 
-export const getAuthUserDataTC = (): AppThunk => {
-    return (dispatch: Dispatch) => {
-        return authAPI.me().then(res => {
-            if (res.data.resultCode === 0) {
-                let {id, login, email} = res.data.data
-                dispatch(setAuthUserData(id, login, email))
-            }
-        })
+export const getAuthUserDataTC = (): AppThunk => async dispatch => {
+    try {
+        const res = await authAPI.me()
+        if (res.data.resultCode === 0) {
+            let {id, login, email} = res.data.data
+            dispatch(setAuthUserData(id, login, email))
+        }
+    } catch (e:any) {
+        throw new Error(e)
     }
 }
+
+
 export const loginTC = (data: LoginParamsType): AppThunk => {
-    return (dispatch: Dispatch) => {
+    return (dispatch) => {
         authAPI.login(data).then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsAuth(true))
@@ -92,7 +106,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
     }
 }
 export const logoutTC = (): AppThunk => {
-    return (dispatch: Dispatch) => {
+    return (dispatch) => {
         authAPI.logout().then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsAuth(false))

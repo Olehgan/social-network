@@ -30,14 +30,14 @@ export const InitializedSuccess = () => {
     } as const
 }
 
-export const initializeAppTC = ():AppThunk => {
+export const initializeAppTC = (): AppThunk => {
     return (dispatch: any) => {
         let promise = dispatch(getAuthUserDataTC())
         promise.then(() =>
             dispatch(InitializedSuccess())
         )
-
     }
 }
+
 
 export type AppActionType = SettInitializedSuccessType | SetAuthUserDataType

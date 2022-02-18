@@ -19,10 +19,7 @@ export type AppStateType = ReturnType<typeof rootReducers>
 let store = createStore(rootReducers, applyMiddleware(thunkMiddleware))
 
 export type CommonActionType = UsersActionType|DialogsActionType | AppActionType | AuthActionType | ProfileActionType
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
-    AppStateType,
-    unknown,
-    CommonActionType>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, CommonActionType>
 
 //@ts-ignore
 window.store = store;
