@@ -17,7 +17,14 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader";
 import {withAuthNavigate} from "../../hoc/withAuthNavigate";
-import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUserCount,
+    getUsers
+} from "../../redux/users-selrctors";
 
 type MSTP = {
     users: UsersType[]
@@ -79,12 +86,12 @@ export class UsersAPIComponent extends React.Component<UsersAPITypeProps> {
 
 let mapStateToProps = (state: AppStateType): MSTP => {
     return {
-        users: state.usersPage.users,
-        totalCount: state.usersPage.totalCount,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        totalCount: getTotalUserCount(state),
+        pageSize: getPageSize(state),
+        currentPage: getCurrentPage(state),
+        isFetching:getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 export const UsersContainer = connect<MSTP, MDTP, {}, AppStateType>(mapStateToProps,
