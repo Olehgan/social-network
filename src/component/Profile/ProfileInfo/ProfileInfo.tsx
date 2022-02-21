@@ -3,7 +3,8 @@ import s from './ProfileInfo.module.css'
 import {ProfileType} from "../../../redux/profile-reducer";
 import {NavLink} from "react-router-dom";
 import {Preloader} from "../../../common/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatus} from "./ProfileStatusFunctionComponent";
+
 
 type ProfileInfoPropsType = {
     profile:ProfileType
