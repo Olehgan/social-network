@@ -114,6 +114,7 @@ export const setStatus = (status: string) => {
 
 
 export const getUsersProfileTC = (userId: string) => {
+    console.log("getUsersProfileTC")
     return (dispatch: Dispatch) => {
         profileAPI.getUserProfile(userId).then(res => {
             dispatch(setUserProfile(res.data))
@@ -122,14 +123,17 @@ export const getUsersProfileTC = (userId: string) => {
 }
 
 export const getStatusTC = (userId: string) => {
+    console.log("getStatusTC")
     return (dispatch: Dispatch) => {
-        profileAPI.getStatus(userId).then(res => {
+        profileAPI.getStatus(userId).then
+        (res => {
             dispatch(setStatus(res.data))
         })
     }
 }
 
 export const updateStatusTC = (status: string) => {
+    console.log("updateStatusTC")
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(res => {
             if (res.data.resultCode === 0) {
